@@ -1,0 +1,59 @@
+{
+    "entity": "event",
+    "account_id": "acc_FJ7fsEBIbjqH7r",
+    "event": "payment.captured",
+    "contains": [
+        "payment"
+    ],
+    "payload": {
+        "payment": {
+            "entity": {
+                "id": "pay_FJvA9l01kt1j0v",
+                "entity": "payment",
+                "amount": 10000,
+                "currency": "INR",
+                "status": "captured",
+                "order_id": "order_FJv9fb86MLKYY0",
+                "invoice_id": null,
+                "international": false,
+                "method": "card",
+                "amount_refunded": 0,
+                "refund_status": null,
+                "captured": true,
+                "description": "Test Transaction",
+                "card_id": "card_FJvA9pdda9VzDz",
+                "card": {
+                    "id": "card_FJvA9pdda9VzDz",
+                    "entity": "card",
+                    "name": "2123",
+                    "last4": "1111",
+                    "network": "Visa",
+                    "type": "debit",
+                    "issuer": null,
+                    "international": false,
+                    "emi": false,
+                    "global_fingerprint": "2d2f06c2017b4e7334dfe3d81429c14f",
+                    "sub_type": "consumer"
+                },
+                "bank": null,
+                "wallet": null,
+                "vpa": null,
+                "email": "test@gmail.com",
+                "contact": "+911234567891",
+                "notes": [],
+                "fee": 200,
+                "tax": 0,
+                "error_code": null,
+                "error_description": null,
+                "error_source": null,
+                "error_step": null,
+                "error_reason": null,
+                "acquirer_data": {
+                    "auth_code": "369313"
+                },
+                "created_at": 1595940469
+            }
+        }
+    },
+    "created_at": 1595940471
+}
