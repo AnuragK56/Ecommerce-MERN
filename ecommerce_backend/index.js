@@ -1,9 +1,29 @@
+//Importing the packages which are required
 const express = require("express");
 const app = express();
 const shortid = require("shortid");
 const Razorpay = require("razorpay");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const MongoClient = require("mongodb").MongoClient;
+const mongoose = require("mongoose");
+require("dotenv/config");
+
+//Adding routes
+const verifypaymentRoute = require("./routes/payment");
+app.use("/verifypayment", verifypaymentRoute);
+
+//Route to add product
+const addproduct = require("./routes/addproduct");
+app.use("/addproduct", addproduct);
+
+//Route to show all products
+const getproducts = require("./routes/getproducts");
+app.use("/getproducts", getproducts);
+
+//Route to show all products
+const deleteproduct = require("./routes/deleteproduct");
+app.use("/deleteproduct", deleteproduct);
 
 var port = process.env.PORT || 5000;
 app.set("view engine", "ejs");
@@ -15,10 +35,23 @@ app.listen(port, function () {
 });
 app.use(bodyParser.json());
 
+//Connect to the razorpay Account
 var razorpay = new Razorpay({
-  key_id: "rzp_test_xfqXHG772xVSUH",
-  key_secret: "kvQwkiGcUgtlGQs4pDuYkMF5",
+  key_id: process.env.Razorpay_key_id,
+  key_secret: process.env.Razorpay_key_secret,
 });
+
+//Connecting to the Database
+
+mongoose.connect(
+  process.env.DB_CONNECTION,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("Connected to db");
+  }
+);
+
+//Creating orderID for transaction razorpay
 
 app.post("/razorpay", async (req, res) => {
   const amount = 100;
@@ -38,6 +71,8 @@ app.post("/razorpay", async (req, res) => {
     console.log(error);
   }
 });
+
+//Using web hooks of razorpay for the confirmation of Payment
 
 app.post("/verification", (req, res) => {
   // do a validation
