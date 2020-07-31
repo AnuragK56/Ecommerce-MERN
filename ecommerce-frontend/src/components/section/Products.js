@@ -4,6 +4,7 @@ import { DataContext } from "../Context";
 
 export class Products extends Component {
   static contextType = DataContext;
+
   render() {
     const { products } = this.context;
     return (
@@ -12,11 +13,14 @@ export class Products extends Component {
           <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="feature" key={product._id}>
               <Link to={`/product/${product._id}`}>
-                <img src={product.src} alt=""></img>
+                <img
+                  src={`http://localhost:5000/${product.image}`}
+                  alt=""
+                ></img>
               </Link>
-                <button onClick={() => this.context.addcart(product._id)}>
-                  ADD TO CART
-                </button>
+              <button onClick={() => this.context.addcart(product._id)}>
+                ADD TO CART
+              </button>
               <div class="featured__item__text">
                 <h6>{product.title}</h6>
                 <h5>₹{product.price}</h5>

@@ -1,0 +1,44 @@
+{
+_id: "5f20abd68bec2984646dfa24",
+title: "Surgical Mask",
+price: 200,
+description: "Cover Completely Before putting on a mask, clean hands with alcohol-based hand rub or soap and water. Cover mouth and nose with mask and make sure there are no gaps between your face and the mask. Avoid Touching Avoid touching the mask while using it; if you do, clean your hands with alcohol-based hand rub or soap and water. Discard the Mask Replace the mask with a new one as soon as it is damp and do not re-use single-use masks. Clean once Discarding Mask Remove the mask from behind (do not touch the front of mask); discard immediately in a closed bin; clean hands with alcohol-based hand rub or soap and water.",
+image: "uploads\1595976662046-Mask.jpeg",
+stock: 100,
+category: "Disposable",
+subcategory: "Mask",
+__v: 0
+},
+{
+_id: "5f2166c4459d894cd0865aca",
+title: "N95 Mask",
+price: 300,
+description: "This classic disposable N95 particulate respirator is designed to help provide comfortable, reliable worker respiratory protection against certain non-oil based particles. 3M Particulate Respirator 8210, N95 is a disposable particulate respirator that is designed to help provide reliable respiratory protection of at least 95 percent filtration efficiency against certain non-oil based particles. This respirator is designed for use for particles such as those from grinding, sanding, sweeping, sawing, bagging, or other dusty operations.",
+image: "uploads\1596024516736-N95_mask.jpeg",
+stock: 100,
+category: "Disposable",
+subcategory: "Mask",
+__v: 0
+},
+{
+_id: "5f216764459d894cd0865acb",
+title: "PPE Kit",
+price: 685,
+description: "Non-Woven PPE Kit ,Colour- White, GSM- 95(75+20) , Non-Woven PPE laminated Fabric, Leak proof tape- Seam sealing tape All over Where is stiching.Size -large, Government SITRA approved Fabric , ISO certification, GMP certification, CE certification PPE Kit. 1. Full body protecting Coverall body suit/gown with cap/Hood attached Made up in two colour i.e Medical blue/ white colour. 2. Shoe cover - Non woven Fabric same Fabric is used in gown / Coverall body suit. 3. Gloves - 1 pair. 4. Safety googles/Face Shield. 5. 2 Face masks (3 ply disposable face mask) 6. Bio-degredable Plastic Waste bag For disposable Of kit after use. 7. One surgical cap ",
+image: "uploads\1596024676682-PPE.jpeg",
+stock: 50,
+category: "Disposable",
+subcategory: "PPE",
+__v: 0
+},
+{
+_id: "5f21681c459d894cd0865acc",
+title: "Disposable gloves",
+price: 150,
+description: "3 TIMES THICKER THAN STANDARD LATEX GLOVES - Ansell Microflex SG-375 is the thickest latex gloves offered by Ansell. It will prevent rips and tears making this glove ideal for heavy duty applications in industrial, mechanical or medical environments TEXTURED FINGERS FOR SECURED GRIP - Featuring Microflex Safe grip technology, this examination glove will provide workers a reliable grip in their handling of tools or equipment's: A perfect adding value for jobs in labs, Clinique's or in the industry EXTENDED CUFF FOR EXPANDED PROTECTION - This powder free natural rubber glove with long cuff protects wrist and forearm for extra safety in handling hazardous chemicals or other liquids. An enhanced safety in every type of environment AVAILABLE IN MANY SIZES FOR AN OPTIMAL WEAR - Ansell Microflex gloves are available in Small, Medium, Large and Extra-large for convenience to every types of hand. Gloves come in dispensers of 50 units ADVANCED DISPOSABLE HAND PROTECTION - Whatever the task, and whatever the environment, customers around the world can rely on MICROFLEX’s advanced hand protection solutions to go beyond protection to improve worker comfort and productivity",
+image: "uploads\1596024860431-Disposable_gloves.jpeg",
+stock: 300,
+category: "Disposable",
+subcategory: "Gloves",
+__v: 0
+}

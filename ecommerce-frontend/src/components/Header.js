@@ -4,22 +4,22 @@ import { DataContext } from "./Context";
 export class Header extends Component {
   static contextType = DataContext;
   render() {
-    const { cart, total } = this.context;
+    const { cart } = this.context;
     return (
       <>
         <div class="humberger__menu__overlay"></div>
         <div class="humberger__menu__wrapper">
           <div class="humberger__menu__logo">
-            <a href="#">
+            <Link to="/">
               <img src="img/logo.png" alt=""></img>
-            </a>
+            </Link>
           </div>
           <div class="humberger__menu__cart">
             <ul>
               <li>
-                <a href="#">
+                <Link to="/">
                   <i class="fa fa-heart"></i> <span>1</span>
-                </a>
+                </Link>
               </li>
               <li>
                 <Link to="/">
@@ -27,13 +27,6 @@ export class Header extends Component {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div class="humberger__menu__widget">
-            <div class="header__top__right__auth">
-              <a href="#">
-                <i class="fa fa-user"></i> Login
-              </a>
-            </div>
           </div>
           <nav class="humberger__menu__nav mobile-menu">
             <ul>
@@ -78,13 +71,7 @@ export class Header extends Component {
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                  <div class="header__top__right">
-                    <div class="header__top__right__auth">
-                      <a href="#">
-                        <i class="fa fa-user"></i> Login
-                      </a>
-                    </div>
-                  </div>
+                  <div class="header__top__right"></div>
                 </div>
               </div>
             </div>

@@ -8,7 +8,14 @@ const cors = require("cors");
 const MongoClient = require("mongodb").MongoClient;
 const mongoose = require("mongoose");
 require("dotenv/config");
+app.use(cors());
+app.use(bodyParser.json());
 
+//making Photos available
+// app.use("/uploads", express.static(__dirname + "/uploads"));
+
+app.use("/uploads", express.static("uploads"));
+// app.use(express.static(__dirname + "/public"));
 //Adding routes
 const verifypaymentRoute = require("./routes/payment");
 app.use("/verifypayment", verifypaymentRoute);
@@ -25,11 +32,18 @@ app.use("/getproducts", getproducts);
 const deleteproduct = require("./routes/deleteproduct");
 app.use("/deleteproduct", deleteproduct);
 
+//Route to create Order id
+const createorder = require("./routes/createorder");
+app.use("/createorder", createorder);
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 var port = process.env.PORT || 5000;
 app.set("view engine", "ejs");
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static(__dirname + "/public"));
+
 app.listen(port, function () {
   console.log("Our app is running on http://localhost:" + port);
 });
@@ -53,50 +67,50 @@ mongoose.connect(
 
 //Creating orderID for transaction razorpay
 
-app.post("/razorpay", async (req, res) => {
-  const amount = 100;
-  const currency = "INR";
-  const payment_capture = 1;
-  const receipt = shortid.generate();
-  const options = { amount: amount * 100, currency, receipt, payment_capture };
-  try {
-    const response = await razorpay.orders.create(options);
-    console.log(response);
-    res.json({
-      id: response.id,
-      currency: response.currency,
-      amount: response.amount,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-});
+// app.post("/razorpay", async (req, res) => {
+//   const amount = 100;
+//   const currency = "INR";
+//   const payment_capture = 1;
+//   const receipt = shortid.generate();
+//   const options = { amount: amount * 100, currency, receipt, payment_capture };
+//   try {
+//     const response = await razorpay.orders.create(options);
+//     console.log(response);
+//     res.json({
+//       id: response.id,
+//       currency: response.currency,
+//       amount: response.amount,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 //Using web hooks of razorpay for the confirmation of Payment
 
-app.post("/verification", (req, res) => {
-  // do a validation
-  const secret = "secretkey";
+// app.post("/verification", (req, res) => {
+//   // do a validation
+//   const secret = "secretkey";
 
-  console.log(req.body);
+//   console.log(req.body);
 
-  const crypto = require("crypto");
+//   const crypto = require("crypto");
 
-  const shasum = crypto.createHmac("sha256", secret);
-  shasum.update(JSON.stringify(req.body));
-  const digest = shasum.digest("hex");
+//   const shasum = crypto.createHmac("sha256", secret);
+//   shasum.update(JSON.stringify(req.body));
+//   const digest = shasum.digest("hex");
 
-  console.log(digest, req.headers["x-razorpay-signature"]);
+//   console.log(digest, req.headers["x-razorpay-signature"]);
 
-  if (digest === req.headers["x-razorpay-signature"]) {
-    console.log("request is legit");
-    // process it
-    require("fs").writeFileSync(
-      "payment1.json",
-      JSON.stringify(req.body, null, 4)
-    );
-  } else {
-    // pass it
-  }
-  res.json({ status: "ok" });
-});
+//   if (digest === req.headers["x-razorpay-signature"]) {
+//     console.log("request is legit");
+//     // process it
+//     require("fs").writeFileSync(
+//       "payment1.json",
+//       JSON.stringify(req.body, null, 4)
+//     );
+//   } else {
+//     // pass it
+//   }
+//   res.json({ status: "ok" });
+// });

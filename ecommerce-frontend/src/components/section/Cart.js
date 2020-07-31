@@ -17,87 +17,108 @@ export class Cart extends Component {
           <section class="shoping-cart spad">
             <div class="container">
               <div class="row">
-                <div class="col-lg-12">
-                  <div class="shoping__cart__table"></div>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th class="shoping__product">Products</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {cart.map((item) => (
+                <div class="col-lg-7">
+                  <div class="shoping__cart__table">
+                    <table>
+                      <thead>
                         <tr>
-                          <div className="Details" key="{item._id}">
-                            <td class="shoping__cart__item">
-                              <img src="{item.src}" alt=""></img>
+                          <th class="shoping__product">Products</th>
+                          <th>Price</th>
+                          <th>Quantity</th>
+                          <th>Total</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {cart.map((item) => (
+                          <tr>
+                            <td class="shoping__cart__item" key="{item._id}">
+                              <img
+                                src={`http://localhost:5000/${item.image}`}
+                                alt=""
+                                width="50"
+                                height="50"
+                              ></img>
                               <h5>{item.title}</h5>
                             </td>
-                            <td class="shoping__cart__price">${item.price}</td>
+                            <td class="shoping__cart__price">₹{item.price}</td>
                             <td class="shoping__cart__quantity">
                               <div class="quantity">
-                                <div class="pro-qty">
-                                  <button
+                                <div>
+                                  <span
                                     className="count"
                                     onClick={() => reduction(item._id)}
+                                    class="btn btn-success"
                                   >
                                     -
-                                  </button>
-                                  <span>{item.count}</span>
+                                  </span>
+                                  {/* <input value={item.count}></input> */}
+                                  <span style={{ padding: "15px" }}>
+                                    {item.count}
+                                  </span>
+                                  <span
+                                    className="count"
+                                    onClick={() => increase(item._id)}
+                                    class="btn btn-success"
+                                  >
+                                    +
+                                  </span>
                                 </div>
-                                <button
-                                  className="count"
-                                  onClick={() => increase(item._id)}
-                                >
-                                  +
-                                </button>
                               </div>
                             </td>
                             <td class="shoping__cart__total">
-                              ${item.price * item.count}
+                              ₹{item.price * item.count}
                             </td>
                             <td class="shoping__cart__item__close">
-                              <button
-                                className="count"
+                              <span
                                 onClick={() => removeitem(item._id)}
-                              >
-                                X
-                              </button>
+                                class="icon_close"
+                              ></span>
                             </td>
-                          </div>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="shoping__cart__btns">
-                  <a href="/" class="primary-btn cart-btn">
-                    CONTINUE SHOPPING
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="col-lg-6">
+
+                <div class="col-lg-4">
                   <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
                       <li>
-                        Total <span>${total}</span>
+                        Total <span>₹{total}</span>
                       </li>
                     </ul>
-                    <Link to="/payment">
-                      <button class="primary-btn">PROCEED TO CHECKOUT</button>
+                    <Link to="/payment" class="primary-btn">
+                      PROCEED TO CHECKOUT
                     </Link>
                   </div>
                 </div>
+              </div>
+              <div class="row">
+                <div style={{ margin: "auto", paddingTop: "20px" }}>
+                  <Link to="/" class="primary-btn">
+                    Continue Shopping
+                  </Link>
+                </div>
+                {/* <div class="col-lg-6"> 
+                   <div class="shoping__continue"> 
+                   ------------------- For Discount Coupon Code---------------- 
+                     <div class="shoping__discount">
+                      <h5>Discount Codes</h5>
+                      <form action="#">
+                        <input
+                          type="text"
+                          placeholder="Enter your coupon code"
+                        ></input>
+                        <button type="submit" class="site-btn">
+                          APPLY COUPON
+                        </button>
+                      </form>
+                    </div> 
+                   </div> 
+                 </div> */}
               </div>
             </div>
           </section>

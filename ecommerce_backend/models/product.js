@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+
+//Schema for storing Product Details
 const productSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   title: { type: String, required: true },
@@ -8,5 +10,6 @@ const productSchema = mongoose.Schema({
   image: { type: String, required: true },
   category: { type: String, required: true },
   subcategory: { type: String },
+  count: { type: Number, default: 1 },
 });
 module.exports = mongoose.model("Product", productSchema);

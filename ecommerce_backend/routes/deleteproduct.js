@@ -4,6 +4,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Product = require("../models/product");
 
+
+//Find the product using productID from the url(params) and delete the product from the database
 router.delete("/:productId", async (req, res) => {
   try {
     console.log(req.params.productId);
