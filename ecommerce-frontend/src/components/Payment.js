@@ -43,7 +43,9 @@ async function displayRazorpay() {
   const paymentoption = new window.Razorpay(options);
   paymentoption.open();
 }
+
 export class Payment extends Component {
+  static contextType = DataContext;
   state = {
     firstname: "",
     lastname: "",
@@ -62,7 +64,34 @@ export class Payment extends Component {
     phonenumberError: "",
     pincodeError: "",
   };
-
+  async cashonDelivery() {
+    const tempcart = this.context.cart.map((product) => ({
+      product: product._id,
+      quantity: product.count,
+    }));
+    const data = {
+      customer: {
+        firstname: this.state.firstname,
+        lastname: this.state.lastname,
+        address: this.state.address,
+        state: this.state.state,
+        city: this.state.city,
+        pincode: this.state.pincode,
+        phonenumber: this.state.phonenumber,
+        email: this.state.email,
+      },
+      cart: tempcart,
+      paymentmethod: "COD",
+      total: this.context.total,
+    };
+    console.log(JSON.stringify(data));
+    const data1 = await fetch("http://localhost:5000/createorder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).then((t) => t.json());
+    console.log(data1);
+  }
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -97,11 +126,11 @@ export class Payment extends Component {
     if (!this.state.email.includes("@")) {
       emailError = "Invalid email";
     }
-    if (this.state.phonenumber.length != 10) {
+    if (this.state.phonenumber.length !== 10) {
       phonenumberError = "Invalid phonenumber";
     }
 
-    if (this.state.pincode.length != 6) {
+    if (this.state.pincode.length !== 6) {
       pincodeError = "Invalid pincode";
     }
 
@@ -134,7 +163,6 @@ export class Payment extends Component {
     event.preventDefault();
     const isValid = this.validate();
     if (isValid) {
-      console.log(this.state);
       this.setState({
         firstnameError: "",
         lastnameError: "",
@@ -146,9 +174,10 @@ export class Payment extends Component {
         pincodeError: "",
       });
       // {displayRazorpay}
+      this.cashonDelivery();
     }
   };
-  static contextType = DataContext;
+
   render() {
     const { cart, total } = this.context;
     if (cart.length === 0) {
@@ -157,168 +186,175 @@ export class Payment extends Component {
       return (
         <>
           {/* <section class="checkout spad"> */}
-            <div class="container">
-              <div class="checkout__form">
-                <h4>Billing Details</h4>
-                <form onSubmit={this.handleSubmit}>
-                  <div class="row">
-                    <div class="col-lg-8 col-md-6">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="checkout__input">
-                            <p>
-                              Fist Name<span>*</span>
-                            </p>
-                            <input
-                              type="text"
-                              name="firstname"
-                              value={this.state.firstname}
-                              onChange={this.handleChange}
-                            ></input>
-                            <div style={{ fontSize: 12, color: "red" }}>
-                              {this.state.firstnameError}
-                            </div>
+          <div class="container">
+            <div class="checkout__form">
+              <h4>Billing Details</h4>
+              <form onSubmit={this.handleSubmit}>
+                <div class="row">
+                  <div class="col-lg-8 col-md-6">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="checkout__input">
+                          <p>
+                            Fist Name<span>*</span>
+                          </p>
+                          <input
+                            type="text"
+                            name="firstname"
+                            value={this.state.firstname}
+                            onChange={this.handleChange}
+                          ></input>
+                          <div style={{ fontSize: 12, color: "red" }}>
+                            {this.state.firstnameError}
                           </div>
                         </div>
-                        <div class="col-lg-6">
-                          <div class="checkout__input">
-                            <p>
-                              Last Name<span>*</span>
-                            </p>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="checkout__input">
+                          <p>
+                            Last Name<span>*</span>
+                          </p>
 
-                            <input
-                              type="text"
-                              name="lastname"
-                              value={this.state.lastname}
-                              onChange={this.handleChange}
-                            ></input>
-                            <div style={{ fontSize: 12, color: "red" }}>
-                              {this.state.lastnameError}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="checkout__input">
-                        <p>
-                          Address<span>*</span>
-                        </p>
-                        <input
-                          type="text"
-                          name="address"
-                          value={this.state.address}
-                          onChange={this.handleChange}
-                        ></input>
-                        <div style={{ fontSize: 12, color: "red" }}>
-                          {this.state.addressError}
-                        </div>
-                      </div>
-                      <div class="checkout__input">
-                        <p>
-                          Town/City<span>*</span>
-                        </p>
-                        <input
-                          type="text"
-                          name="city"
-                          value={this.state.city}
-                          onChange={this.handleChange}
-                        ></input>
-                        <div style={{ fontSize: 12, color: "red" }}>
-                          {this.state.cityError}
-                        </div>
-                      </div>
-                      <div class="checkout__input">
-                        <p>
-                          State<span>*</span>
-                        </p>
-                        <input
-                          type="text"
-                          name="state"
-                          value={this.state.state}
-                          onChange={this.handleChange}
-                        ></input>
-                        <div style={{ fontSize: 12, color: "red" }}>
-                          {this.state.stateError}
-                        </div>
-                      </div>
-                      <div class="checkout__input">
-                        <p>
-                          Pincode / ZIP<span>*</span>
-                        </p>
-                        <input
-                          type="number"
-                          name="pincode"
-                          value={this.state.pincode}
-                          onChange={this.handleChange}
-                        ></input>
-                        <div style={{ fontSize: 12, color: "red" }}>
-                          {this.state.pincodeError}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="checkout__input">
-                            <p>
-                              Phone<span>*</span>
-                            </p>
-                            <input
-                              type="number"
-                              name="phonenumber"
-                              value={this.state.phonenumber}
-                              onChange={this.handleChange}
-                            ></input>
-                            <div style={{ fontSize: 12, color: "red" }}>
-                              {this.state.phonenumberError}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="checkout__input">
-                            <p>
-                              Email<span>*</span>
-                            </p>
-                            <input
-                              type="email"
-                              name="email"
-                              value={this.state.email}
-                              onChange={this.handleChange}
-                            ></input>
-                            <div style={{ fontSize: 12, color: "red" }}>
-                              {this.state.emailError}
-                            </div>
+                          <input
+                            type="text"
+                            name="lastname"
+                            value={this.state.lastname}
+                            onChange={this.handleChange}
+                          ></input>
+                          <div style={{ fontSize: 12, color: "red" }}>
+                            {this.state.lastnameError}
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                      <div class="checkout__order">
-                        <h4>Your Order</h4>
-                        <div class="checkout__order__products">
-                          Products <span>Total</span>
+                    <div class="checkout__input">
+                      <p>
+                        Address<span>*</span>
+                      </p>
+                      <input
+                        type="text"
+                        name="address"
+                        value={this.state.address}
+                        onChange={this.handleChange}
+                      ></input>
+                      <div style={{ fontSize: 12, color: "red" }}>
+                        {this.state.addressError}
+                      </div>
+                    </div>
+                    <div class="checkout__input">
+                      <p>
+                        Town/City<span>*</span>
+                      </p>
+                      <input
+                        type="text"
+                        name="city"
+                        value={this.state.city}
+                        onChange={this.handleChange}
+                      ></input>
+                      <div style={{ fontSize: 12, color: "red" }}>
+                        {this.state.cityError}
+                      </div>
+                    </div>
+                    <div class="checkout__input">
+                      <p>
+                        State<span>*</span>
+                      </p>
+                      <input
+                        type="text"
+                        name="state"
+                        value={this.state.state}
+                        onChange={this.handleChange}
+                      ></input>
+                      <div style={{ fontSize: 12, color: "red" }}>
+                        {this.state.stateError}
+                      </div>
+                    </div>
+                    <div class="checkout__input">
+                      <p>
+                        Pincode / ZIP<span>*</span>
+                      </p>
+                      <input
+                        type="number"
+                        name="pincode"
+                        value={this.state.pincode}
+                        onChange={this.handleChange}
+                      ></input>
+                      <div style={{ fontSize: 12, color: "red" }}>
+                        {this.state.pincodeError}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="checkout__input">
+                          <p>
+                            Phone<span>*</span>
+                          </p>
+                          <input
+                            type="number"
+                            name="phonenumber"
+                            value={this.state.phonenumber}
+                            onChange={this.handleChange}
+                          ></input>
+                          <div style={{ fontSize: 12, color: "red" }}>
+                            {this.state.phonenumberError}
+                          </div>
                         </div>
-                        <ul>
-                          {cart.map((item) => (
-                            <li>
-                              {item.title}{" "}
-                              <span>₹{item.price * item.count}</span>
-                            </li>
-                          ))}
-                        </ul>
-
-                        <div class="checkout__order__total">
-                          Total <span>₹{total}</span>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="checkout__input">
+                          <p>
+                            Email<span>*</span>
+                          </p>
+                          <input
+                            type="email"
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                          ></input>
+                          <div style={{ fontSize: 12, color: "red" }}>
+                            {this.state.emailError}
+                          </div>
                         </div>
-                        <button
-                          type="submit"
-                          class="site-btn"
-                        >
-                          Make payment
-                        </button>
                       </div>
                     </div>
                   </div>
-                </form>
-              </div>
+                  <div class="col-lg-4 col-md-6">
+                    <div class="checkout__order">
+                      <h4>Your Order</h4>
+                      <div class="checkout__order__products">
+                        Products <span>Total</span>
+                      </div>
+                      <ul>
+                        {cart.map((item) => (
+                          <li>
+                            {item.title} <span>₹{item.price * item.count}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div class="checkout__order__total">
+                        Total <span>₹{total}</span>
+                      </div>
+                      <button
+                        type="submit"
+                        class="site-btn"
+                        onSubmit={displayRazorpay}
+                      >
+                        Pay Using RazorPay
+                      </button>
+                      <button
+                        type="submit"
+                        class="site-btn"
+                        onSubmit={this.handleSubmit}
+                      >
+                        Pay using Cash on Delivery
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
+          </div>
           {/* </section> */}
         </>
       );

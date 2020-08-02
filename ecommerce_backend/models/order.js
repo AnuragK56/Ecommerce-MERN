@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+var shortId = require("shortid");
 //Schema for storing Cart Schema Details
 const cartSchema = mongoose.Schema({
   product: {
@@ -9,22 +9,28 @@ const cartSchema = mongoose.Schema({
   },
   quantity: { type: Number, required: true },
 });
+const razorpaySchema = mongoose.Schema({
+  razorpay_orderid: { type: String },
+  razorpay_reciept: { type: String },
+  paymentcaptured: { type: Date },
+  transactionid: { type: String },
+  paymentstatus: { type: String, default: "Unpaid" },
+});
 
 //Schema for Creating a order Schema
 const orderSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
+  orderid: { type: String, unique: true, default: shortId.generate },
   cart: [cartSchema],
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Customer",
     required: true,
   },
-  razorpay_orderid: { type: String, required: true },
-  razorpay_reciept: { type: String, required: true },
-  orderstatus: { type: String, required: true, default: "Unpaid" },
+  paymentmethod: { type: String, required: true },
+  razorpay: razorpaySchema,
+  orderstatus: { type: String, default: "OrderCreated" },
   total: { type: Number, required: true },
   ordercreation: { type: Date, default: Date.now },
-  paymentcaptured: { type: Date },
-  transactionid: { type: String },
 });
 module.exports = mongoose.model("Order", orderSchema);
