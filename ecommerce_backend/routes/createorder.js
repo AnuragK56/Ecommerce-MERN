@@ -17,14 +17,12 @@ var razorpay = new Razorpay({
 });
 
 //Variable to store data
-var razerpay_order_id = "";
+var razorpay_order_id = "";
 const currency = "INR";
 app.use(bodyParser.json());
 var jsonParser = bodyParser.json();
 
-
 router.post("/", jsonParser, async (req, res) => {
-
   //Function to create and get customer_id which is required to  generate Order
   let customer_id;
   async function createCustomer() {
@@ -66,10 +64,10 @@ router.post("/", jsonParser, async (req, res) => {
     }
   }
 
-//There are two payment option "COD " && Razorpay  
-//For COD,
+  //There are two payment option "COD " && Razorpay
+  //For COD,
   if (req.body.paymentmethod === "COD") {
-  //Calling function to create customer
+    //Calling function to create customer
     await createCustomer();
     //Creating order Id to add in database
     const order = new Order({
@@ -78,7 +76,7 @@ router.post("/", jsonParser, async (req, res) => {
       total: req.body.total,
       customer: customer_id,
       paymentmethod: req.body.paymentmethod,
-      orderstatus: "unpaid",
+      orderstatus: "Order Created",
     });
     // Then saving the order to the database
     order
@@ -107,56 +105,83 @@ router.post("/", jsonParser, async (req, res) => {
         });
       });
   } else {
+    //For Razorpay Payment
     await createCustomer();
+    let orderId;
+    let receipt;
     //Creating Razorpay order
-    // const amount = total;
-    // const payment_capture = 1;
-    // const receipt = shortid.generate();
-    // const options = { amount: amount * 100, currency, receipt, payment_capture };
-    // try {
-    //   const response = await razorpay.orders.create(options);
-    //   // console.log("Razorpay: " + response);
-    //   razerpay_order_id = response.id;
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // //Creating order Id to add in database
-    // const order = new Order({
-    //   _id: new mongoose.Types.ObjectId(),
-    //   cart: req.body.cart,
-    //   total: total,
-    //   customer: customer_id,
-    //   razorpay_orderid: razerpay_order_id,
-    //   razorpay_reciept: receipt,
-    //   orderstatus: "unpaid",
-    //   receipt: receipt,
-    // });
-    // //Then saving the order to the database
-    // order
-    //   .save()
-    //   .then((result) => {
-    //     console.log(result);
-    //     res.status(201).json({
-    //       message: "Created order successfully",
-    //       createdorder: {
-    //         id: result.id,
-    //         cart: result.cart,
-    //         total: result.total,
-    //         razorpay_orderid: result.razorpay_orderid,
-    //         razorpay_reciept: result.razorpay_reciept,
-    //         orderstatus: result.orderstatus,
-    //         total: result.total,
-    //         receipt: result.receipt,
-    //         ordercreation: result.ordercreation,
-    //       },
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     res.status(500).json({
-    //       error: err,
-    //     });
-    //   });
+    const amount = req.body.total;
+    const payment_capture = 1;
+    const order = new Order({
+      _id: new mongoose.Types.ObjectId(),
+      cart: req.body.cart,
+      total: req.body.total,
+      customer: customer_id,
+      paymentmethod: req.body.paymentmethod,
+      orderstatus: "Order Created",
+    });
+    const data = await order
+      .save()
+      .then((result) => {
+        // console.log("Result" + result);
+        orderId = result._id;
+        receipt = result.orderid;
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          error: err,
+        });
+      });
+    // console.log("Data orderid   :" + receipt + " " + orderId);
+    var total = Number(req.body.total);
+    total = total * 100;
+    const options = {
+      amount: total,
+      currency,
+      receipt,
+      payment_capture,
+    };
+    //Requesting Razorpay to create an Order
+    try {
+      const response = await razorpay.orders.create(options);
+      // console.log("Razorpay: " + response);
+      razorpay_order_id = response.id;
+    } catch (error) {
+      console.log(error);
+    }
+    //IF order is successful update database
+    if (razorpay_order_id !== "") {
+      try {
+        const response = await Order.findOneAndUpdate(
+          { _id: orderId },
+          {
+            $set: {
+              razorpay: {
+                razorpay_orderid: razorpay_order_id,
+                razorpay_reciept: receipt,
+              },
+            },
+          }
+        );
+        // console.log(response);
+        // console.log(razorpay_order_id + " " + receipt + "  " + total);
+        res.status(201).json({
+          message: "Created order successfully",
+          createdorder: {
+            id: customer_id,
+            razorpay_order_id: razorpay_order_id,
+            order_id: receipt,
+            currency: currency,
+            amount: total,
+          },
+        });
+      } catch (err) {
+        res.status(500).json({
+          error: err,
+        });
+      }
+    }
   }
 });
 

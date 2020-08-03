@@ -10,10 +10,50 @@ export class Cart extends Component {
   render() {
     const { cart, increase, reduction, removeitem, total } = this.context;
     if (cart.length === 0) {
-      return <h2>Cart is empty</h2>;
+      return (
+        <>
+          <div className="container">
+            <div
+              style={{
+                width: "100%",
+                height: "100px",
+                backgroundColor: "#7fad39",
+                borderRadius: "10px",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  display: "inline-block",
+                  paddingTop: "30px",
+                  color: "white",
+                  fontWeight: "1000",
+                  fontSize: "40px",
+                }}
+              >
+                Confirm Details
+              </p>
+            </div>
+          </div>
+          <h2>Cart is empty</h2>
+        </>
+      );
     } else {
       return (
         <>
+        <div className="container">
+            <div
+              style={{
+                width: "100%",
+                height: "100px",
+                backgroundColor: "#7fad39",
+                borderRadius: "10px",
+                textAlign: "center",
+              }}
+            >
+              <p style={{ display: "inline-block",paddingTop:"30px",color:"white",fontWeight:"1000",fontSize:"40px"}}>Shopping Cart</p>
+            </div>
+          </div>
           <section class="shoping-cart spad">
             <div class="container">
               <div class="row">
@@ -90,7 +130,7 @@ export class Cart extends Component {
                         Total <span>₹{total}</span>
                       </li>
                     </ul>
-                    <Link to="/payment" class="primary-btn">
+                    <Link to="/checkout" class="primary-btn">
                       PROCEED TO CHECKOUT
                     </Link>
                   </div>

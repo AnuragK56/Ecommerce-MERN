@@ -96,7 +96,7 @@ p {
   color: #6f6f6f;
   font-weight: 400;
   line-height: 26px;
-  margin: 0 0 15px 0;
+  margin: 0 0 5px 0;
 }
 
 img {
@@ -2101,8 +2101,7 @@ ol {
 -----------------------*/
 
 .checkout {
-  padding-top: 80px;
-  padding-bottom: 60px;
+  text-align: center;
 }
 
 .checkout h6 {
@@ -2138,12 +2137,13 @@ ol {
 }
 
 .checkout__input {
-  margin-bottom: 24px;
+  padding:1%;
+
 }
 
 .checkout__input p {
   color: #1c1c1c;
-  margin-bottom: 20px;
+
 }
 
 .checkout__input p span {

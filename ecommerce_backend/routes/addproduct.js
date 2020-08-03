@@ -4,7 +4,7 @@ const router = express.Router();
 const multer = require("multer");
 const mongoose = require("mongoose");
 const Product = require("../models/product");
-
+const checkAuth = require("../middleware/checkauth");
 //Store the image in upload folder and appropiate name
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -35,13 +35,13 @@ const upload = multer({
 
 //Mutler acts as middleware to ccept the file
 //Creating a new post request to accept a new product
-router.post("/", upload.single("image"), (req, res) => {
+router.post("/", checkAuth, upload.single("image"), (req, res) => {
   console.log(req.file);
   console.log(req.body);
 
   let imagelink = req.file.path;
   // imagelink = imagelink.replace(/\\/g, "/");
-  console.log(imagelink);
+  // console.log(imagelink);
   //Creating new Product using Product schema
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
@@ -58,7 +58,7 @@ router.post("/", upload.single("image"), (req, res) => {
   product
     .save()
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.status(201).json({
         message: "Created product successfully",
         createdProduct: {
