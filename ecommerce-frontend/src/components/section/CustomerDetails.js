@@ -33,10 +33,20 @@ export class CustomerDetails extends Component {
               textAlign: "center",
             }}
           >
-            <p style={{ display: "inline-block",paddingTop:"30px",color:"white",fontWeight:"1000",fontSize:"40px"}}>Shipping Details</p>
+            <p
+              style={{
+                display: "inline-block",
+                paddingTop: "30px",
+                color: "white",
+                fontWeight: "1000",
+                fontSize: "40px",
+              }}
+            >
+              Shipping Details
+            </p>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6" style={{   margin: "0 auto"}}>
+        <div class="col-lg-6 col-md-6" style={{ margin: "0 auto" }}>
           <div class="row">
             <div class="col-lg-6">
               <div class="checkout__input">
@@ -169,16 +179,16 @@ export class CustomerDetails extends Component {
             </div>
           </div>
           <div class="row">
-          <div className="col-lg-6">
-            <Link class="site-btn" to="/cart">
-              Back to Cart
-            </Link>
-          </div>
-          <div style={{   margin: "0 auto"}} className="col-lg-6">
-          <button type="submit" class="site-btn"   onClick={this.continue}>
-            Continue
-          </button>
-          </div>
+            <div className="col-lg-6">
+              <Link class="site-btn" to="/cart">
+                Back to Cart
+              </Link>
+            </div>
+            <div style={{ margin: "0 auto" }} className="col-lg-6">
+              <button type="submit" class="site-btn" onClick={this.continue}>
+                Continue
+              </button>
+            </div>
           </div>
         </div>
       </>

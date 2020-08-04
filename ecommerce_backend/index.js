@@ -35,8 +35,14 @@ app.use("/deleteproduct", deleteproduct);
 const verifypayment = require("./routes/verifypayment");
 app.use("/verifypayment", verifypayment);
 
+//Route to login where user is verified
 const adminpanel = require("./routes/adminpanel");
 app.use("/adminpanel", adminpanel);
+
+//Route to return orders to admin
+const showorders = require("./routes/showorders");
+app.use("/showorders", showorders);
+
 
 //Route to create Order id
 const createorder = require("./routes/createorder");

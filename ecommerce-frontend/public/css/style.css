@@ -2137,13 +2137,11 @@ ol {
 }
 
 .checkout__input {
-  padding:1%;
-
+  padding: 1%;
 }
 
 .checkout__input p {
   color: #1c1c1c;
-
 }
 
 .checkout__input p span {

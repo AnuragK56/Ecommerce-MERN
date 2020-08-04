@@ -3,8 +3,9 @@ import Orderplaced from "./section/Orderplaced";
 import ConfirmDetails from "./section/ConfirmDetails";
 import CustomerDetails from "./section/CustomerDetails";
 import PaymentOptions from "./section/PaymentOptions";
-
+import { DataContext } from "../components/Context";
 export class Checkout extends Component {
+  static contextType = DataContext;
   state = {
     step: 1,
     firstname: "",
@@ -98,9 +99,9 @@ export class Checkout extends Component {
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
-  addOrderId=(order)=>{
-    this.setState({orderId:order});
-  }
+  addOrderId = (order) => {
+    this.setState({ orderId: order });
+  };
   // handleChange = (event) => {
   //   this.setState({
   //     [event.target.name]: event.target.value,
@@ -146,44 +147,75 @@ export class Checkout extends Component {
       pincodeError,
       orderId,
     };
-    switch (step) {
-      default:
-      case 1:
-        return (
-          <CustomerDetails
-            nextStep={this.nextStep}
-            handleChange={this.handleChange}
-            validate={this.validate}
-            values={values}
-          />
-        );
-      case 2:
-        return (
-          <>
-            <ConfirmDetails
+    const { cart } = this.context;
+    if (cart.length > 0) {
+      switch (step) {
+        case 1:
+          return (
+            <CustomerDetails
               nextStep={this.nextStep}
-              prevStep={this.prevStep}
+              handleChange={this.handleChange}
+              validate={this.validate}
               values={values}
             />
-          </>
-        );
+          );
+        case 2:
+          return (
+            <>
+              <ConfirmDetails
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                values={values}
+              />
+            </>
+          );
 
-      case 3:
-        return (
-          <>
-            <PaymentOptions
-              values={values}
-              nextStep={this.nextStep}
-              addOrderId={this.addOrderId}
-            ></PaymentOptions>
-          </>
-        );
-      case 4:
-        return (
-          <>
-            <Orderplaced values={values} />
-          </>
-        );
+        case 3:
+          return (
+            <>
+              <PaymentOptions
+                values={values}
+                nextStep={this.nextStep}
+                addOrderId={this.addOrderId}
+              ></PaymentOptions>
+            </>
+          );
+        case 4:
+          return (
+            <>
+              <Orderplaced values={values} />
+            </>
+          );
+      }
+    } else {
+      return (
+        <>
+          <div className="container">
+            <div
+              style={{
+                width: "100%",
+                height: "100px",
+                backgroundColor: "#7fad39",
+                borderRadius: "10px",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  display: "inline-block",
+                  paddingTop: "30px",
+                  color: "white",
+                  fontWeight: "1000",
+                  fontSize: "40px",
+                }}
+              >
+                Confirm Details
+              </p>
+            </div>
+          </div>
+          <h2>Cart is empty</h2>
+        </>
+      );
     }
   }
 }
