@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Icon, Image, Modal } from "semantic-ui-react";
+import { Button, Icon, Modal } from "semantic-ui-react";
 
 const OrderDetails = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -16,6 +16,7 @@ const OrderDetails = (props) => {
         <Modal.Description>
           <div className="row">
             <div class="col-lg-6">
+              <h1>Customer Details</h1>
               <p>
                 <strong>First name: &nbsp;</strong>
                 {props.order.customer.firstname}{" "}
@@ -52,8 +53,10 @@ const OrderDetails = (props) => {
               </p>
             </div>
           </div>
-          <div >
+          <hr></hr>
+          <div className="col-lg-6" style={{ margin: "0 auto" }}>
             <h1> Cart</h1>
+            <p> (Order created at {props.order.ordercreation})</p>
             <table>
               <thead>
                 <tr>
@@ -95,6 +98,43 @@ const OrderDetails = (props) => {
                 ))}
               </tbody>
             </table>
+          </div>
+          <hr></hr>
+          <div className="col-lg-6" style={{ margin: "0 auto" }}>
+            <h1>Payment</h1>
+            <div>
+              <p>
+                <strong>Payment method &nbsp;</strong>
+                {props.order.paymentmethod}{" "}
+              </p>
+              {props.order.paymentmethod === "Razorpay" && (
+                <p>
+                  <strong>Payment Status &nbsp;</strong>
+                  {props.order.razorpay.paymentstatus}
+                </p>
+              )}
+              {/* 
+              {props.order.paymentmethod === "Razorpay" && (
+                <p>
+                  <strong>Razorpay Order Id:&nbsp;</strong>
+                  {props.order.razorpay.razorpay_orderid}
+                </p>
+              )} */}
+              {props.order.paymentmethod === "Razorpay" &&
+                props.order.razorpay.paymentstatus !== "Unpaid" && (
+                  <p>
+                    <strong>Razorpay Transaction ID &nbsp;</strong>
+                    {props.order.razorpay.transactionid}
+                  </p>
+                )}
+              {props.order.paymentmethod === "Razorpay" &&
+                props.order.razorpay.paymentstatus !== "Unpaid" && (
+                  <p>
+                    <strong>Payment Captured at &nbsp;</strong>
+                    {props.order.razorpay.paymentcaptured}
+                  </p>
+                )}
+            </div>
           </div>
         </Modal.Description>
       </Modal.Content>

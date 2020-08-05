@@ -27,9 +27,6 @@ const fileFilter = (req, file, cb) => {
 //Adding upload parameters to multer
 const upload = multer({
   storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5,
-  },
   fileFilter: fileFilter,
 });
 
@@ -38,8 +35,14 @@ const upload = multer({
 router.post("/", checkAuth, upload.single("image"), (req, res) => {
   console.log(req.file);
   console.log(req.body);
+  // var images = { image: req.files.path[0] };
+  // var obj = JSON.parse(images);
+  // for (i = 1; i < req.files.length; i++) {
+  //   obj["image"].push({ image: req.files.path[i] });
+  // }
+  // images = Json.stringify(obj);
 
-  let imagelink = req.file.path;
+  let image = req.file.path;
   // imagelink = imagelink.replace(/\\/g, "/");
   // console.log(imagelink);
   //Creating new Product using Product schema
@@ -48,7 +51,8 @@ router.post("/", checkAuth, upload.single("image"), (req, res) => {
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,
-    image: imagelink,
+    image: image,
+    // images:images,
     stock: req.body.stock,
     category: req.body.category,
     subcategory: req.body.subcategory,

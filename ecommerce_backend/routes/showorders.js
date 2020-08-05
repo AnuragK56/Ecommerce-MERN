@@ -3,9 +3,10 @@ const app = express();
 const router = express.Router();
 const mongoose = require("mongoose");
 const Orders = require("../models/order");
+const checkAuth = require("../middleware/checkauth");
 
 //Returns all the products in JSON Format
-router.get("/", async (req, res) => {
+router.get("/", checkAuth, async (req, res) => {
   try {
     const orders = await Orders.find()
       .populate("customer")

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Header, activeItem, Icon, Menu } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 export class adminpanel extends Component {
   constructor(props) {
@@ -57,9 +57,9 @@ export class adminpanel extends Component {
         <Link to="/login" class="primary-btn">
           Go to login
         </Link>
+        
       );
     } else {
-      const { products } = this.state;
       return (
         <>
           <div class="container">
@@ -69,7 +69,7 @@ export class adminpanel extends Component {
                   <Menu.Item as={Link} to="/adminpanel" active>
                     Products
                   </Menu.Item>
-                  <Menu.Item as={Link} to="/addnewproduct">
+                  <Menu.Item as={Link} to="/addproduct">
                     Add new product
                   </Menu.Item>
                   <Menu.Item as={Link} to="/showorders">
@@ -88,10 +88,13 @@ export class adminpanel extends Component {
                   <thead>
                     <tr>
                       <th class="shoping__product">Products</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Total</th>
-                      <th></th>
+                      <th>Title &nbsp;</th>
+                      <th>Price&nbsp;&nbsp;&nbsp;</th>
+
+                      <th>Stock&nbsp;&nbsp;&nbsp;</th>
+                      <th>Category&nbsp;&nbsp;&nbsp;</th>
+                      <th>Sub-Category&nbsp;&nbsp;&nbsp;</th>
+                      <th>Delete&nbsp;</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -104,8 +107,9 @@ export class adminpanel extends Component {
                             width="50"
                             height="50"
                           ></img>
-                          <h5>{item.title}</h5>
                         </td>
+                        <td class="shoping__cart__price">{item.title}</td>
+
                         <td class="shoping__cart__price">₹{item.price}</td>
                         <td class="shoping__cart__quantity">
                           <div class="quantity">
@@ -116,9 +120,8 @@ export class adminpanel extends Component {
                             </div>
                           </div>
                         </td>
-                        <td class="shoping__cart__total">
-                          ₹{item.price * item.count}
-                        </td>
+                        <td class="shoping__cart__total">{item.category}</td>
+                        <td class="shoping__cart__total">{item.subcategory}</td>
                         <td class="shoping__cart__item__close">
                           <button
                             onClick={() => this.deleteitem(item)}

@@ -92,11 +92,11 @@ export class Header extends Component {
                       <Link to="/">Home</Link>
                     </li>
                     <li>
-                      <Link to="/product">Disposable</Link>
+                      <Link to="/disposable">Disposable</Link>
                     </li>
 
                     <li>
-                      <Link to="/">Saloon Products</Link>
+                      <Link to="/saloon">Saloon Products</Link>
                     </li>
                     <li>
                       <Link to="/">Contact</Link>
