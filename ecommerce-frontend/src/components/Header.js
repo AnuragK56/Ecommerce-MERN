@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "./Context";
+// import { BrowserRouter as Router, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 export class Header extends Component {
   static contextType = DataContext;
   render() {
     const { cart } = this.context;
+
     return (
       <>
         <div class="humberger__menu__overlay"></div>
@@ -17,12 +20,7 @@ export class Header extends Component {
           <div class="humberger__menu__cart">
             <ul>
               <li>
-                <Link to="/">
-                  <i class="fa fa-heart"></i> <span>1</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/">
+                <Link to="/cart">
                   <i class="fa fa-shopping-bag"></i> <span>{cart.length}</span>
                 </Link>
               </li>
@@ -38,7 +36,7 @@ export class Header extends Component {
               </li>
 
               <li>
-                <Link to="/">Saloon Products</Link>
+                <Link to="/">Salon Products</Link>
               </li>
               <li>
                 <Link to="/">Contact</Link>
@@ -71,7 +69,17 @@ export class Header extends Component {
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                  <div class="header__top__right"></div>
+                  <div class="header__top__right">
+                    <div class="header__top__right__social">
+                      <a href="https://www.facebook.com/thesalonshopindia">
+                        <i class="fa fa-facebook"></i>
+                      </a>
+                    </div>
+                    <div class="header__top__right__language">
+                      <img src="img/language.png" alt=""></img>
+                      <div>English</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -80,15 +88,15 @@ export class Header extends Component {
             <div class="row">
               <div class="col-lg-3">
                 <div class="header__logo">
-                  <a href="./index.html">
+                  <Link to="/">
                     <img src="img/logo.png" alt=""></img>
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div class="col-lg-6">
                 <nav class="header__menu">
                   <ul>
-                    <li class="active">
+                    <li>
                       <Link to="/">Home</Link>
                     </li>
                     <li>
@@ -96,7 +104,7 @@ export class Header extends Component {
                     </li>
 
                     <li>
-                      <Link to="/saloon">Saloon Products</Link>
+                      <Link to="/salon">Salon Products</Link>
                     </li>
                     <li>
                       <Link to="/">Contact</Link>

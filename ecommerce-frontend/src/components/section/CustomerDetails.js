@@ -24,26 +24,8 @@ export class CustomerDetails extends Component {
     return (
       <>
         <div className="container">
-          <div
-            style={{
-              width: "100%",
-              height: "100px",
-              backgroundColor: "#7fad39",
-              borderRadius: "10px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                display: "inline-block",
-                paddingTop: "30px",
-                color: "white",
-                fontWeight: "1000",
-                fontSize: "40px",
-              }}
-            >
-              Shipping Details
-            </p>
+          <div class="banner">
+            <p className="banner-text">Shipping Details</p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6" style={{ margin: "0 auto" }}>
@@ -178,14 +160,22 @@ export class CustomerDetails extends Component {
               </div>
             </div>
           </div>
-          <div class="row">
-            <div className="col-lg-6">
-              <Link class="site-btn" to="/cart">
+          <div class="row" style={{ padding: "1%" }}>
+            <div className="col-lg-6" style={{ padding: "1%" }}>
+              <Link class="btn site-btn  btn-lg btn-block" to="/cart">
                 Back to Cart
               </Link>
             </div>
-            <div style={{ margin: "0 auto" }} className="col-lg-6">
-              <button type="submit" class="site-btn" onClick={this.continue}>
+            <div
+              style={{ margin: "0 auto", padding: "1%" }}
+              className="col-lg-6"
+            >
+              <button
+                type="submit"
+                class="btn site-btn  btn-lg btn-block"
+                style={{ height: "h-10" }}
+                onClick={this.continue}
+              >
                 Continue
               </button>
             </div>

@@ -45,7 +45,7 @@ export class DataProvider extends Component {
   increase = (id) => {
     const { cart } = this.state;
     cart.forEach((item) => {
-      if (item._id === id) {
+      if (item._id === id && item.stock != item.count) {
         item.count = item.count + 1;
       }
     });

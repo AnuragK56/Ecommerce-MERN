@@ -157,17 +157,39 @@ export class PaymentOptions extends Component {
     if (this.state.payment === "") {
       paid = (
         <>
-          <button type="submit" class="site-btn" onClick={this.payrazorpay}>
-            Pay Using RazorPay
-          </button>
-          <button type="submit" class="site-btn" onClick={this.paycod}>
-            Pay using Cash on Delivery
-          </button>
+          <div className="row">
+            <div className="col-6">
+              <button
+                type="submit"
+                class="btn site-btn  btn-lg btn-block"
+                onClick={this.payrazorpay}
+              >
+                UPI/CARD/NETBANKING
+                <br></br>
+                <small>(Razorpay)</small>
+              </button>
+            </div>
+            <div className="col-6">
+              <button
+                type="submit"
+                class="btn site-btn  btn-lg btn-block"
+                onClick={this.paycod}
+              >
+                COD
+                <br></br>
+                <small>(Cash on Delivery)</small>
+              </button>
+            </div>
+          </div>
         </>
       );
     } else {
       paid = (
-        <button type="submit" class="site-btn" onClick={this.continue}>
+        <button
+          type="submit"
+          class="btn site-btn  btn-lg btn-block"
+          onClick={this.continue}
+        >
           Order Details
         </button>
       );
@@ -175,26 +197,8 @@ export class PaymentOptions extends Component {
     return (
       <>
         <div className="container">
-          <div
-            style={{
-              width: "100%",
-              height: "100px",
-              backgroundColor: "#7fad39",
-              borderRadius: "10px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                display: "inline-block",
-                paddingTop: "30px",
-                color: "white",
-                fontWeight: "1000",
-                fontSize: "40px",
-              }}
-            >
-              Confirm Details
-            </p>
+          <div class="banner">
+            <p className="banner-text">Confirm Details</p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6" style={{ margin: "0 auto" }}>

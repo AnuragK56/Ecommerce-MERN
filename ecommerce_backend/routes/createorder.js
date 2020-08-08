@@ -43,20 +43,6 @@ router.post("/", jsonParser, async (req, res) => {
       //Saving the customer in database
       await customer.save().then((result) => {
         customer_id = result._id;
-        // res.status(201).json({
-        //   message: "Created Customer successfully",
-        //   createdorder: {
-        //     _id: result._id,
-        //     firstname: result.firstname,
-        //     lastname: result.lastname,
-        //     address: result.address,
-        //     state: result.state,
-        //     city: result.city,
-        //     pincode: result.pincode,
-        //     phonenumber: result.phonenumber,
-        //     email: result.email,
-        //   },
-        // });
       });
     } catch (err) {
       console.log("err" + err);
@@ -142,7 +128,7 @@ router.post("/", jsonParser, async (req, res) => {
       receipt,
       payment_capture,
     };
-    //Requesting Razorpay to create an Order
+    +    //Requesting Razorpay to create an Order
     try {
       const response = await razorpay.orders.create(options);
       // console.log("Razorpay: " + response);

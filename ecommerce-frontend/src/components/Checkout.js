@@ -191,29 +191,20 @@ export class Checkout extends Component {
       return (
         <>
           <div className="container">
-            <div
-              style={{
-                width: "100%",
-                height: "100px",
-                backgroundColor: "#7fad39",
-                borderRadius: "10px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  display: "inline-block",
-                  paddingTop: "30px",
-                  color: "white",
-                  fontWeight: "1000",
-                  fontSize: "40px",
-                }}
-              >
-                Confirm Details
-              </p>
+            <div className="banner">
+              <p className="banner-text">Confirm Details</p>
             </div>
           </div>
-          <h2>Cart is empty</h2>
+          <div
+            style={{
+              margin: "auto",
+              width: "50%",
+              textAlign: "center",
+              padding: "10px",
+            }}
+          >
+            <h2>Cart is empty</h2>
+          </div>
         </>
       );
     }

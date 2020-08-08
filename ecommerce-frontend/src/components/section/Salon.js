@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "../Context";
 
-export class Disposable extends Component {
+export class Saloon extends Component {
   static contextType = DataContext;
 
   render() {
@@ -10,7 +10,7 @@ export class Disposable extends Component {
     return (
       <div class="products container">
         <div className="banner">
-          <p className="banner-text">Disposable Product</p>
+          <p className="banner-text">Salon Products</p>
         </div>
         <div className="row">
           <div className="col-3" style={{ marginTop: "1%" }}>
@@ -59,17 +59,11 @@ export class Disposable extends Component {
           <div className="col-9">
             <div className="row">
               {products
-                .filter((item) => item.category.includes("Disposable"))
+                .filter((item) => item.category.includes("Saloon"))
                 .map((product) => (
-                  // <div className="col-12 col-sm-8 col-md-6 col-lg-4">
-                  //   <div
-                  //     class="card "
-                  //     style={{ width: "18rem", margin: "2%" }}
-                  //     key={product._id}
-                  //   >
                   <div
-                    className=" col-sm-8 col-md-6 col-lg-4"
-                    style={{ paddingTop: "2%", paddingBottom: "2%" }}
+                    className="col-12 col-sm-8 col-md-6 col-lg-4"
+                    style={{ padding: "2%" }}
                   >
                     <div
                       class="card h-100 property-card "
@@ -96,8 +90,11 @@ export class Disposable extends Component {
                           ></img>
                         </Link>
                       </div>
-                      <h3 class="card-title">{product.title}</h3>
-                      <div class="d-flex justify-content-between align-items-center">
+                      <h4 class="card-title">{product.title}</h4>
+                      <div
+                        class="buy d-flex justify-content-between align-items-center"
+                        style={{ padding: "3%" }}
+                      >
                         <div class="price">
                           <h5 class="mt-4 text-success">₹{product.price} </h5>
                         </div>
@@ -120,4 +117,4 @@ export class Disposable extends Component {
   }
 }
 
-export default Disposable;
+export default Saloon;

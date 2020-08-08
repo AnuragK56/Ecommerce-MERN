@@ -13,45 +13,28 @@ export class Cart extends Component {
       return (
         <>
           <div className="container">
-            <div
-              style={{
-                width: "100%",
-                height: "100px",
-                backgroundColor: "#7fad39",
-                borderRadius: "10px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  display: "inline-block",
-                  paddingTop: "30px",
-                  color: "white",
-                  fontWeight: "1000",
-                  fontSize: "40px",
-                }}
-              >
-                Confirm Details
-              </p>
+            <div class="banner">
+              <p className="banner-text">Shopping Cart</p>
             </div>
           </div>
-          <h2>Cart is empty</h2>
+          <div
+            style={{
+              margin: "auto",
+              width: "50%",
+              textAlign: "center",
+              padding: "10px",
+            }}
+          >
+            <h2>Cart is empty</h2>
+          </div>
         </>
       );
     } else {
       return (
         <>
-        <div className="container">
-            <div
-              style={{
-                width: "100%",
-                height: "100px",
-                backgroundColor: "#7fad39",
-                borderRadius: "10px",
-                textAlign: "center",
-              }}
-            >
-              <p style={{ display: "inline-block",paddingTop:"30px",color:"white",fontWeight:"1000",fontSize:"40px"}}>Shopping Cart</p>
+          <div className="container">
+            <div class="banner">
+              <p className="banner-text">Shopping Cart</p>
             </div>
           </div>
           <section class="shoping-cart spad">
@@ -79,7 +62,7 @@ export class Cart extends Component {
                                 width="50"
                                 height="50"
                               ></img>
-                              <h5>{item.title}</h5>
+                              <p>{item.title}</p>
                             </td>
                             <td class="shoping__cart__price">₹{item.price}</td>
                             <td class="shoping__cart__quantity">

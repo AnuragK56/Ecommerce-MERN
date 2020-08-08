@@ -12,26 +12,8 @@ export class Orderplaced extends Component {
     return (
       <>
         <div className="container">
-          <div
-            style={{
-              width: "100%",
-              height: "100px",
-              backgroundColor: "#7fad39",
-              borderRadius: "10px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                display: "inline-block",
-                paddingTop: "30px",
-                color: "white",
-                fontWeight: "1000",
-                fontSize: "40px",
-              }}
-            >
-              Order ID:{values.orderId}
-            </p>
+          <div className="banner">
+            <p className="banner-text">Order ID:{values.orderId}</p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6" style={{ margin: "0 auto" }}>
@@ -44,7 +26,8 @@ export class Orderplaced extends Component {
                 fontSize: "20px",
               }}
             >
-              Thank you {values.firstname}.<span></span>Your order Summary
+              Thank you {values.firstname}.<span></span>Your order has been
+              placed
             </h3>
             <table>
               <thead>
@@ -85,12 +68,18 @@ export class Orderplaced extends Component {
               </tbody>
             </table>
           </div>
-          <div class="shoping__checkout">
+          {/* <div class="shoping__checkout">
             <ul>
               <li>
                 Total <span>₹{total}</span>
               </li>
             </ul>
+          </div> */}
+          <div className="banner">
+            <p className="banner-text">
+              {" "}
+              Total &nbsp; &nbsp;<span>₹{total}</span>
+            </p>
           </div>
         </div>
       </>
