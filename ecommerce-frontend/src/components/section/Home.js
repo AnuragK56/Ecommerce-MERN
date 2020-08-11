@@ -24,7 +24,7 @@ export class Home extends Component {
             <img
               style={{ width: "100%", maxHeight: "500px" }}
               className="d-block w-100"
-              src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
+              src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg"
               alt="First slide"
             />
           </Carousel.Item>
@@ -32,7 +32,7 @@ export class Home extends Component {
             <img
               className="d-block w-100"
               style={{ width: "100%", maxHeight: "500px" }}
-              src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
+              src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg"
               alt="Third slide"
             />
           </Carousel.Item>
@@ -40,7 +40,7 @@ export class Home extends Component {
             <img
               className="d-block w-100"
               style={{ width: "100%", maxHeight: "500px" }}
-              src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
+              src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg"
               alt="Third slide"
             />
 

@@ -15,10 +15,6 @@ app.use(bodyParser.json());
 app.use("/uploads", express.static("uploads"));
 // app.use(express.static(__dirname + "/public"));
 
-//Adding routes
-const verifypaymentRoute = require("./routes/payment");
-app.use("/verifypayment", verifypaymentRoute);
-
 //Route to add product
 const addproduct = require("./routes/addproduct");
 app.use("/addproduct", addproduct);
