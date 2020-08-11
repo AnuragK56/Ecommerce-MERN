@@ -34,9 +34,8 @@ router.post("/", async (req, res) => {
       );
       cart = response.cart;
       for (var i in cart) {
-        console.log(cart[i].product);
         Product.findByIdAndUpdate(
-          { _id: cart[i].product },
+          { _id: cart[i].productid },
           { $inc: { stock: -cart[i].quantity } }
         )
           .then((result) => {

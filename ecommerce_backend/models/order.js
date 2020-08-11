@@ -2,11 +2,13 @@ const mongoose = require("mongoose");
 var shortId = require("shortid");
 //Schema for storing Cart Schema Details
 const cartSchema = mongoose.Schema({
-  product: {
+  productid: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
     required: true,
   },
+  title: { type: String, required: true },
+  image:{type:String,required:true},
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
 });
@@ -30,8 +32,8 @@ const orderSchema = mongoose.Schema({
   },
   paymentmethod: { type: String, required: true },
   razorpay: razorpaySchema,
-  couriername:{type:String},
-  trackingid:{type:String},
+  couriername: { type: String },
+  trackingid: { type: String },
   orderstatus: { type: String, default: "OrderCreated" },
   total: { type: Number, required: true },
   ordercreation: { type: Date, default: Date.now },

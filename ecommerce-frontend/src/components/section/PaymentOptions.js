@@ -33,7 +33,9 @@ export class PaymentOptions extends Component {
   async displayRazorpay() {
     //Creating cart with product id and quantity
     const tempcart = this.context.cart.map((product) => ({
-      product: product._id,
+      productid: product._id,
+      title: product.title,
+      image: product.image,
       price: product.price,
       quantity: product.count,
     }));
@@ -117,7 +119,9 @@ export class PaymentOptions extends Component {
   //Function For COD to generate Order Id and save data to database
   async cashonDelivery() {
     const tempcart = this.context.cart.map((product) => ({
-      product: product._id,
+      productid: product._id,
+      title: product.title,
+      image: product.image,
       price: product.price,
       quantity: product.count,
     }));

@@ -34,7 +34,7 @@ export class Addproduct extends Component {
     }
   }
   handleChange = (event) => {
-    if (event.target.name === "category") 
+    if (event.target.name === "category") console.log(event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -95,13 +95,14 @@ export class Addproduct extends Component {
     return true;
   };
   onChangeHandler = (event) => {
+    console.log(event.target.files[0]);
     this.setState({
       selectedFile: event.target.files[0],
     });
   };
   submitdata = () => {
     const data = new FormData();
-    // console.log(this.state.selectedFile);
+    console.log(this.state.selectedFile);
     data.append("image", this.state.selectedFile);
     //   for (var x = 0; x < this.state.selectedFile.length; x++) {
     //     data.append("file", this.state.selectedFile[x]);
@@ -129,7 +130,7 @@ export class Addproduct extends Component {
     event.preventDefault();
     const isValid = this.validate();
     if (isValid) {
-      // console.log(this.state);
+      console.log(this.state);
       this.setState({
         titleError: "",
         descriptionError: "",

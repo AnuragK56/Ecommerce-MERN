@@ -31,9 +31,8 @@ const OrderDetails = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      })
-        .then((t) => t.json())
-        // .then((data) => console.log(data));
+      }).then((t) => t.json());
+      // .then((data) => console.log(data));
       window.location.reload(false);
     }
   }
@@ -104,14 +103,14 @@ const OrderDetails = (props) => {
               <tbody>
                 {props.order.cart.map((item) => (
                   <tr>
-                    <td key="{item._id}">
+                    <td key="{item.productid}">
                       <img
-                        src={`http://localhost:5000/${item.product.image}`}
+                        src={`http://localhost:5000/${item.image}`}
                         alt=""
                         width="50"
                         height="50"
                       ></img>
-                      <h5>{item.product.title}</h5>
+                      <h5>{item.title}</h5>
                     </td>
                     <td className="shoping__cart__price">₹{item.price}</td>
                     <td className="shoping__cart__quantity">
@@ -125,7 +124,7 @@ const OrderDetails = (props) => {
                       </div>
                     </td>
                     <td className="shoping__cart__total">
-                      ₹{item.product.price * item.quantity}
+                      ₹{item.price * item.quantity}
                     </td>
                     <td className="shoping__cart__item__close"></td>
                   </tr>

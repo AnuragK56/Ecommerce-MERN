@@ -10,7 +10,6 @@ router.get("/", checkAuth, async (req, res) => {
   try {
     const orders = await Orders.find()
       .populate("customer")
-      .populate("cart.product")
       .exec();
     res.json(orders);
   } catch (err) {
