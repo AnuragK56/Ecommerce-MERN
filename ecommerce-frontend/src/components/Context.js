@@ -6,13 +6,21 @@ export class DataProvider extends Component {
     products: [],
     cart: [],
     total: 0,
+    disposablesubcategory: [],
+    salonsubcategory: [],
   };
 
   fetchData = async () => {
     fetch("http://localhost:5000/getproducts", {})
       .then((response) => response.json())
-      .then((data) => this.setState({ products: data }));
-    console.log("Fetching data ");
+      .then((data) =>
+        this.setState({
+          products: data.products.filter((product) => product.stock > 0),
+          salonsubcategory: data.Salonsubcategory,
+          disposablesubcategory: data.Disposablesubcategory,
+        })
+      );
+    // console.log("Fetching data ");
   };
   componentDidMount() {
     this.fetchData();
@@ -45,7 +53,7 @@ export class DataProvider extends Component {
   increase = (id) => {
     const { cart } = this.state;
     cart.forEach((item) => {
-      if (item._id === id && item.stock != item.count) {
+      if (item._id === id && item.stock !== item.count) {
         item.count = item.count + 1;
       }
     });
@@ -76,7 +84,13 @@ export class DataProvider extends Component {
     this.setState({ total: res });
   };
   render() {
-    const { products, cart, total } = this.state;
+    const {
+      products,
+      cart,
+      total,
+      salonsubcategory,
+      disposablesubcategory,
+    } = this.state;
     const {
       addcart,
       increase,
@@ -97,6 +111,8 @@ export class DataProvider extends Component {
           total,
           getTotal,
           emptycart,
+          salonsubcategory,
+          disposablesubcategory,
         }}
       >
         {this.props.children}

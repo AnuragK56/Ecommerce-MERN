@@ -34,11 +34,12 @@ export class PaymentOptions extends Component {
     //Creating cart with product id and quantity
     const tempcart = this.context.cart.map((product) => ({
       product: product._id,
+      price: product.price,
       quantity: product.count,
     }));
-    console.log(
-      "Creating a cash on delivery order for " + this.props.values.firstname
-    );
+    // console.log(
+    //   "Creating a cash on delivery order for " + this.props.values.firstname
+    // );
 
     //Creating Order details
     const data1 = {
@@ -117,11 +118,12 @@ export class PaymentOptions extends Component {
   async cashonDelivery() {
     const tempcart = this.context.cart.map((product) => ({
       product: product._id,
+      price: product.price,
       quantity: product.count,
     }));
-    console.log(
-      "Creating a cash on delivery order for " + this.props.values.firstname
-    );
+    // console.log(
+    //   "Creating a cash on delivery order for " + this.props.values.firstname
+    // );
     const data = {
       customer: {
         firstname: this.props.values.firstname,
@@ -161,23 +163,25 @@ export class PaymentOptions extends Component {
             <div className="col-6">
               <button
                 type="submit"
-                class="btn site-btn  btn-lg btn-block"
+                className="btn site-btn  btn-lg btn-block"
                 onClick={this.payrazorpay}
+                style={{ fontSize: "18px" }}
               >
-                UPI/CARD/NETBANKING
+                UPI/ CARD/ NETBANKING
                 <br></br>
-                <small>(Razorpay)</small>
+                <small style={{ fontSize: "10px" }}>(Razorpay)</small>
               </button>
             </div>
             <div className="col-6">
               <button
                 type="submit"
-                class="btn site-btn  btn-lg btn-block"
+                className="btn site-btn  btn-lg btn-block"
                 onClick={this.paycod}
+                style={{ fontSize: "18px" }}
               >
                 COD
                 <br></br>
-                <small>(Cash on Delivery)</small>
+                <small style={{ fontSize: "10px" }}>(Cash on Delivery)</small>
               </button>
             </div>
           </div>
@@ -187,7 +191,7 @@ export class PaymentOptions extends Component {
       paid = (
         <button
           type="submit"
-          class="btn site-btn  btn-lg btn-block"
+          className="btn site-btn  btn-lg btn-block"
           onClick={this.continue}
         >
           Order Details
@@ -197,14 +201,14 @@ export class PaymentOptions extends Component {
     return (
       <>
         <div className="container">
-          <div class="banner">
-            <p className="banner-text">Confirm Details</p>
+          <div className="banner">
+            <p className="banner-text">Payment Options</p>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6" style={{ margin: "0 auto" }}>
-          <div class="checkout__order">
+        <div className="col-lg-6 col-md-6" style={{ margin: " 0 auto" }}>
+          <div className="checkout__order">
             <h4>Your Order</h4>
-            <div class="checkout__order__products">
+            <div className="checkout__order__products">
               Products <span>Total</span>
             </div>
             <ul>
@@ -215,11 +219,11 @@ export class PaymentOptions extends Component {
               ))}
             </ul>
 
-            <div class="checkout__order__total">
+            <div className="checkout__order__total">
               Total <span>₹{total}</span>
             </div>
-            {paid}
           </div>
+          {paid}
         </div>
       </>
     );

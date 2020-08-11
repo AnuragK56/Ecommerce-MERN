@@ -6,14 +6,14 @@ export class ConfirmDetails extends Component {
     return (
       <>
         <div className="container">
-          <div class="banner">
+          <div className="banner">
             <p className="banner-text">Confirm Details</p>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6" style={{ margin: "0 auto" }}>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="checkout__input">
+        <div className="col-lg-6 col-md-6" style={{ margin: "0 auto" }}>
+          <div className="row">
+            <div className="col-lg-6">
+              <div className="checkout__input">
                 <p>
                   Fist Name<span>*</span>
                 </p>
@@ -25,8 +25,8 @@ export class ConfirmDetails extends Component {
                 ></input>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="checkout__input">
+            <div className="col-lg-6">
+              <div className="checkout__input">
                 <p>
                   Last Name<span>*</span>
                 </p>
@@ -40,7 +40,7 @@ export class ConfirmDetails extends Component {
               </div>
             </div>
           </div>
-          <div class="checkout__input">
+          <div className="checkout__input">
             <p>
               Address<span>*</span>
             </p>
@@ -51,9 +51,9 @@ export class ConfirmDetails extends Component {
               disabled
             ></input>
           </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="checkout__input">
+          <div className="row">
+            <div className="col-lg-6">
+              <div className="checkout__input">
                 <p>
                   Town/City<span>*</span>
                 </p>
@@ -65,8 +65,8 @@ export class ConfirmDetails extends Component {
                 ></input>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="checkout__input">
+            <div className="col-lg-6">
+              <div className="checkout__input">
                 <p>
                   State<span>*</span>
                 </p>
@@ -79,7 +79,7 @@ export class ConfirmDetails extends Component {
               </div>
             </div>
           </div>
-          <div class="checkout__input">
+          <div className="checkout__input">
             <p>
               Pincode / ZIP<span>*</span>
             </p>
@@ -90,9 +90,9 @@ export class ConfirmDetails extends Component {
               disabled
             ></input>
           </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="checkout__input">
+          <div className="row">
+            <div className="col-lg-6">
+              <div className="checkout__input">
                 <p>
                   Phone<span>*</span>
                 </p>
@@ -104,8 +104,8 @@ export class ConfirmDetails extends Component {
                 ></input>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="checkout__input">
+            <div className="col-lg-6">
+              <div className="checkout__input">
                 <p>
                   Email<span>*</span>
                 </p>
@@ -119,20 +119,20 @@ export class ConfirmDetails extends Component {
             </div>
           </div>
           <div style={{ margin: "0 auto" }}>
-            <div class="row" style={{ padding: "1%" }}>
-              <div class="col-lg-6" style={{ padding: "1%" }}>
+            <div className="row" style={{ padding: "1%" }}>
+              <div className="col-lg-6" style={{ padding: "1%" }}>
                 <button
                   type="submit"
-                  class="btn site-btn  btn-lg btn-block"
+                  className="btn site-btn  btn-lg btn-block"
                   onClick={prevStep}
                 >
                   Go Back
                 </button>
               </div>
-              <div class="col-lg-6" style={{ padding: "1%" }}>
+              <div className="col-lg-6" style={{ padding: "1%" }}>
                 <button
                   type="submit"
-                  class="btn site-btn  btn-lg btn-block"
+                  className="btn site-btn  btn-lg btn-block"
                   onClick={nextStep}
                 >
                   Proceed to Payment

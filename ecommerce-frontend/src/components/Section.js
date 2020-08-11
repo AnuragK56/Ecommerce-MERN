@@ -7,9 +7,10 @@ import { Route } from "react-router-dom";
 import Checkout from "./Checkout";
 import Login from "./Login";
 import Home from "./section/Home";
-
 import Adminpanel from "./Adminpanel";
-import Showorders from "./DashboardSection/Showorders";
+import Showcreatedorders from "./DashboardSection/Showcreatedorders";
+import Showshippedorders from "./DashboardSection/Showshippedorders";
+
 import Addproduct from "./DashboardSection/Addproduct";
 
 export class Section extends Component {
@@ -25,7 +26,8 @@ export class Section extends Component {
         <Route path="/checkout" component={Checkout} />
         <Route path="/login" component={Login} />
         <Route path="/adminpanel" component={Adminpanel} />
-        <Route path="/showorders" component={Showorders} />
+        <Route path="/showcreatedorders" component={Showcreatedorders} />
+        <Route path="/showshippedorders" component={Showshippedorders} />
         <Route path="/addproduct" component={Addproduct} />
       </section>
     );

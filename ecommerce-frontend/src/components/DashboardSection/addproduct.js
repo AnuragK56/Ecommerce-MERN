@@ -7,7 +7,8 @@ export class Addproduct extends Component {
   state = {
     title: "",
     description: "",
-    category: "",
+    minidescription: "",
+    category: "Select",
     loggedIn: "",
     accesstoken: "",
     subcategory: "",
@@ -15,6 +16,7 @@ export class Addproduct extends Component {
     stock: 0,
     titleError: "",
     descriptionError: "",
+    minidescriptionError: "",
     categoryError: "",
     subcategoryError: "",
     stockError: "",
@@ -32,6 +34,7 @@ export class Addproduct extends Component {
     }
   }
   handleChange = (event) => {
+    if (event.target.name === "category") 
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -39,6 +42,7 @@ export class Addproduct extends Component {
   validate = () => {
     let titleError = "";
     let descriptionError = "";
+    let minidescriptionError = "";
     let categoryError = "";
     let subcategoryError = "";
     let stockError = "";
@@ -49,6 +53,9 @@ export class Addproduct extends Component {
     }
     if (!this.state.description) {
       descriptionError = "Please Fill the required field";
+    }
+    if (!this.state.minidescription) {
+      minidescriptionError = "Please Fill the required field";
     }
     if (!this.state.category) {
       categoryError = "Please Fill the required field";
@@ -70,6 +77,7 @@ export class Addproduct extends Component {
       subcategoryError ||
       titleError ||
       descriptionError ||
+      minidescriptionError ||
       categoryError
     ) {
       this.setState({
@@ -77,6 +85,7 @@ export class Addproduct extends Component {
         priceError,
         subcategoryError,
         titleError,
+        minidescriptionError,
         descriptionError,
         categoryError,
       });
@@ -86,14 +95,13 @@ export class Addproduct extends Component {
     return true;
   };
   onChangeHandler = (event) => {
-    console.log(event.target.files[0]);
     this.setState({
       selectedFile: event.target.files[0],
     });
   };
   submitdata = () => {
     const data = new FormData();
-    console.log(this.state.selectedFile);
+    // console.log(this.state.selectedFile);
     data.append("image", this.state.selectedFile);
     //   for (var x = 0; x < this.state.selectedFile.length; x++) {
     //     data.append("file", this.state.selectedFile[x]);
@@ -103,6 +111,7 @@ export class Addproduct extends Component {
     data.append("price", this.state.price);
     data.append("stock", this.state.stock);
     data.append("subcategory", this.state.subcategory);
+    data.append("minidescription", this.state.minidescription);
     data.append("description", this.state.description);
     let at = "Bearer " + this.state.accesstoken;
     axios
@@ -120,10 +129,11 @@ export class Addproduct extends Component {
     event.preventDefault();
     const isValid = this.validate();
     if (isValid) {
-      console.log(this.state);
+      // console.log(this.state);
       this.setState({
         titleError: "",
         descriptionError: "",
+        minidescriptionError: "",
         categoryError: "",
         subcategoryError: "",
         stockError: "",
@@ -136,17 +146,17 @@ export class Addproduct extends Component {
   render() {
     if (!this.state.loggedIn) {
       return (
-        <Link to="/login" class="primary-btn">
+        <Link to="/login" className="primary-btn">
           Go to login
         </Link>
       );
     } else {
       return (
         <>
-          {/* <section class="checkout spad"> */}
-          <div class="container ">
+          {/* <section className="checkout spad"> */}
+          <div className="container ">
             <div className="row">
-              <div class="col-lg-1">
+              <div className="col-lg-1">
                 <Menu pointing vertical>
                   <Menu.Item as={Link} to="/adminpanel">
                     Products
@@ -154,21 +164,21 @@ export class Addproduct extends Component {
                   <Menu.Item as={Link} to="/addproduct" active>
                     Add new product
                   </Menu.Item>
-                  <Menu.Item as={Link} to="/showorders">
-                    Show Orders
+                  <Menu.Item as={Link} to="/showcreatedorders">
+                    Show Created Orders
                   </Menu.Item>
-                  <Menu.Item as={Link} to="/manageorders">
-                    Manage Order
+                  <Menu.Item as={Link} to="/showshippedorders">
+                    Show Shipped Orders
                   </Menu.Item>
                 </Menu>
               </div>
-              <div class="checkout__form col-lg-offset-2">
+              <div className="checkout__form col-lg-offset-2">
                 <h4>Billing Details</h4>
                 <form onSubmit={this.handleSubmit}>
-                  <div class="row justify-content-end">
-                    <div class="col-lg-8 col-md-6">
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                  <div className="row justify-content-end">
+                    <div className="col-lg-8 col-md-6">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             Title of Product<span>*</span>
                           </p>
@@ -183,8 +193,8 @@ export class Addproduct extends Component {
                           </div>
                         </div>
                       </div>
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             Description<span>*</span>
                           </p>
@@ -200,22 +210,42 @@ export class Addproduct extends Component {
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="checkout__input">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
+                          <p>
+                            Mini Description<span>*</span>
+                          </p>
+                          <TextArea
+                            placeholder="Short Describption the product"
+                            value={this.state.minidescription}
+                            name="minidescription"
+                            onChange={this.handleChange}
+                          />
+                          <div style={{ fontSize: 12, color: "red" }}>
+                            {this.state.minidescriptionError}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="checkout__input">
                           <p>
                             Category<span>*</span>
                           </p>
-                          <input
-                            type="text"
+                          <select
+                            id="lang"
                             name="category"
-                            value={this.state.category}
                             onChange={this.handleChange}
-                          ></input>
+                            value={this.state.category}
+                          >
+                            <option value="Select">Select</option>
+                            <option value="Disposable">Disposable</option>
+                            <option value="Salon">Salon</option>
+                          </select>
                           <div style={{ fontSize: 12, color: "red" }}>
                             {this.state.categoryError}
                           </div>
                         </div>
-                        <div class="checkout__input">
+                        <div className="checkout__input">
                           <p>
                             Subcategory<span>*</span>
                           </p>
@@ -230,7 +260,7 @@ export class Addproduct extends Component {
                           </div>
                         </div>
                       </div>
-                      <div class="checkout__input">
+                      <div className="checkout__input">
                         <p>
                           Price<span>*</span>
                         </p>
@@ -244,9 +274,9 @@ export class Addproduct extends Component {
                           {this.state.priceError}
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="checkout__input">
+                      <div className="row">
+                        <div className="col-lg-6">
+                          <div className="checkout__input">
                             <p>
                               Stock<span>*</span>
                             </p>
@@ -261,8 +291,8 @@ export class Addproduct extends Component {
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-6">
-                          <div class="checkout__input">
+                        <div className="col-lg-6">
+                          <div className="checkout__input">
                             <p>
                               Upload Product Image<span>*</span>
                             </p>
@@ -274,15 +304,13 @@ export class Addproduct extends Component {
                             />
                           </div>
                         </div>
-                        <div class="checkout__order">
-                          <button
-                            type="submit"
-                            class="site-btn"
-                            onSubmit={this.handleSubmit}
-                          >
-                            Add a new product
-                          </button>
-                        </div>
+                        <button
+                          type="submit"
+                          className="site-btn"
+                          onSubmit={this.handleSubmit}
+                        >
+                          Add a new product
+                        </button>
                       </div>
                     </div>
                   </div>

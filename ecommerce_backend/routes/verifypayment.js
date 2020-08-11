@@ -3,6 +3,7 @@ const app = express();
 const router = express.Router();
 const mongoose = require("mongoose");
 const Order = require("../models/order");
+const Product = require("../models/product");
 const crypto = require("crypto");
 // Using web hooks of razorpay for the confirmation of Payment
 
@@ -20,6 +21,7 @@ router.post("/", async (req, res) => {
   if (digest === req.headers["x-razorpay-signature"]) {
     // console.log("request is legit");
     try {
+      let cart;
       const response = await Order.findOneAndUpdate(
         { "razorpay.razorpay_orderid": orderid },
         {
@@ -30,6 +32,21 @@ router.post("/", async (req, res) => {
           },
         }
       );
+      cart = response.cart;
+      for (var i in cart) {
+        console.log(cart[i].product);
+        Product.findByIdAndUpdate(
+          { _id: cart[i].product },
+          { $inc: { stock: -cart[i].quantity } }
+        )
+          .then((result) => {
+            console.log(result);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
       // console.log(response);
       // console.log(razorpay_order_id + " " + receipt + "  " + total);
       res.json({ status: "ok" });

@@ -43,12 +43,12 @@ export class Login extends Component {
       }
     });
     this.setState({ login: true });
-    console.log(this.state);
+    // console.log(this.state);
   }
   handlesubmit = (event) => {
     if (this.state.username !== "" && this.state.password !== "") {
       this.fetchdata();
-      console.log("Data ", this.state);
+      // console.log("Data ", this.state);
     }
   };
   render() {
@@ -56,32 +56,32 @@ export class Login extends Component {
       return (
         <div className="container">
           {/* <form
-          class="col-lg-6 col-md-6 form-signin"
+          className="col-lg-6 col-md-6 form-signin"
           style={{ margin: "0 auto" }}
         > */}
           <img
-            class="mb-4"
+            className="mb-4"
             src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
             alt=""
             width="72"
             height="72"
           ></img>
           <div style={{ fontSize: 12, color: "red" }}>{this.state.invalid}</div>
-          <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <label class="sr-only">Username</label>
+          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+          <label className="sr-only">Username</label>
           <input
             type="text"
             name="username"
-            class="form-control"
+            className="form-control"
             placeholder="Username "
             onChange={this.handleInputChange}
             value={this.state.email}
           ></input>
-          <label class="sr-only">Password</label>
+          <label className="sr-only">Password</label>
           <input
             type="password"
             name="password"
-            class="form-control"
+            className="form-control"
             placeholder="Password"
             value={this.state.password}
             onChange={this.handleInputChange}
@@ -93,14 +93,14 @@ export class Login extends Component {
           >
             SIGN IN
           </button>
-          <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+          <p className="mt-5 mb-3 text-muted">&copy; 2020</p>
           {/* </form> */}
         </div>
       );
     } else {
       return (
         <>
-          <Link to="/adminpanel" class="primary-btn">
+          <Link to="/adminpanel" className="primary-btn">
             Open Adminpanel
           </Link>
         </>

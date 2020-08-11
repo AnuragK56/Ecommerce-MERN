@@ -1,74 +1,111 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "../Context";
-
-export class Saloon extends Component {
+import { InputGroup, FormControl } from "react-bootstrap";
+export class Salon extends Component {
   static contextType = DataContext;
-
+  state = {
+    searchvalue: "",
+  };
+  subcategorySearch = (input) => {
+    let tempvalue = input.data;
+    this.setState({ searchvalue: tempvalue });
+  };
+  searchSpace = (event) => {
+    let keyword = event.target.value;
+    this.setState({ searchvalue: keyword });
+  };
   render() {
-    const { products } = this.context;
+    const { products, salonsubcategory } = this.context;
     return (
-      <div class="products container">
+      <div className="products container">
         <div className="banner">
           <p className="banner-text">Salon Products</p>
         </div>
         <div className="row">
-          <div className="col-3" style={{ marginTop: "1%" }}>
-            <div class="hero__categories">
-              <div class="hero__categories__all">
-                <i class="fa fa-bars"></i>
+          <div className="col-lg-3" style={{ marginTop: "1%" }}>
+            <div className="hero__categories">
+              <div className="hero__categories__all">
+                <i className="fa fa-bars"></i>
                 <span>Sub-Categories</span>
               </div>
               <ul>
                 <li>
-                  <a href="#">Fresh Meat</a>
+                  <Link
+                    onClick={() => {
+                      this.subcategorySearch("");
+                    }}
+                  >
+                    Show All
+                  </Link>
                 </li>
-                <li>
-                  <a href="#">Vegetables</a>
-                </li>
-                <li>
-                  <a href="#">Fruit & Nut Gifts</a>
-                </li>
-                <li>
-                  <a href="#">Fresh Berries</a>
-                </li>
-                <li>
-                  <a href="#">Ocean Foods</a>
-                </li>
-                <li>
-                  <a href="#">Butter & Eggs</a>
-                </li>
-                <li>
-                  <a href="#">Fastfood</a>
-                </li>
-                <li>
-                  <a href="#">Fresh Onion</a>
-                </li>
-                <li>
-                  <a href="#">Papayaya & Crisps</a>
-                </li>
-                <li>
-                  <a href="#">Oatmeal</a>
-                </li>
-                <li>
-                  <a href="#">Fresh Bananas</a>
-                </li>
+                {salonsubcategory.map((data) => (
+                  <li>
+                    <Link
+                      onClick={() => {
+                        this.subcategorySearch({ data });
+                      }}
+                    >
+                      {data}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
-          <div className="col-9">
+          <div className="col-lg-9">
+            <div>
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="section-title" style={{ paddingTop: "3%" }}>
+                    <h2>Salon Products</h2>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <InputGroup className="mb-3" style={{ paddingTop: "3%" }}>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="basic-addon1">
+                        <i className="fa fa-search"></i>
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                      placeholder="Search"
+                      type="text"
+                      name="searchvalue"
+                      value={this.state.searchvalue}
+                      onChange={this.searchSpace}
+                      aria-label="searchvalue"
+                      aria-describedby="basic-addon1"
+                    />
+                  </InputGroup>
+                </div>
+              </div>
+            </div>
             <div className="row">
               {products
-                .filter((item) => item.category.includes("Saloon"))
+                .filter((item) => item.category.includes("Salon") )
+                .filter((data) => {
+                  if (this.state.searchvalue == null) return data;
+                  else if (
+                    data.title
+                      .toLowerCase()
+                      .includes(this.state.searchvalue.toLowerCase()) ||
+                    data.subcategory
+                      .toLowerCase()
+                      .includes(this.state.searchvalue.toLowerCase())
+                  ) {
+                    return data;
+                  }
+                })
                 .map((product) => (
                   <div
                     className="col-12 col-sm-8 col-md-6 col-lg-4"
                     style={{ padding: "2%" }}
+                    key={product._id}
                   >
                     <div
-                      class="card h-100 property-card "
+                      className="card h-100 property-card "
                       style={{ margin: "2%", padding: "4%" }}
-                      key={product._id}
                     >
                       <div
                         style={{
@@ -81,7 +118,7 @@ export class Saloon extends Component {
                           <img
                             src={`http://localhost:5000/${product.image}`}
                             alt=""
-                            class="card-img-top"
+                            className="card-img-top"
                             style={{
                               width: " 270px",
                               height: "270px",
@@ -90,19 +127,20 @@ export class Saloon extends Component {
                           ></img>
                         </Link>
                       </div>
-                      <h4 class="card-title">{product.title}</h4>
+                      <h4 className="card-title">{product.title}</h4>
+                      <p className="card-title">{product.minidescription}</p>
                       <div
-                        class="buy d-flex justify-content-between align-items-center"
+                        className="buy d-flex justify-content-between align-items-center"
                         style={{ padding: "3%" }}
                       >
-                        <div class="price">
-                          <h5 class="mt-4 text-success">₹{product.price} </h5>
+                        <div className="price">
+                          <h5 className="mt-4 text-success">₹{product.price} </h5>
                         </div>
                         <button
                           onClick={() => this.context.addcart(product._id)}
-                          class="btn btn-success mt-3"
+                          className="btn btn-success mt-3"
                         >
-                          <i class="glyphicon glyphicon-shopping-cart"></i> Add
+                          <i className="glyphicon glyphicon-shopping-cart"></i> Add
                           to Cart
                         </button>
                       </div>
@@ -117,4 +155,4 @@ export class Saloon extends Component {
   }
 }
 
-export default Saloon;
+export default Salon;

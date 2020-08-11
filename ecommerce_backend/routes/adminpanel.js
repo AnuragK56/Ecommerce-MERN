@@ -11,7 +11,7 @@ const adminuser = {
   username: "Salonshop777",
 };
 router.post("/", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   if (
     req.body.username === adminuser.username &&
     req.body.password === "777shopSalon"

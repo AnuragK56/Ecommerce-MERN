@@ -7,6 +7,7 @@ const cartSchema = mongoose.Schema({
     ref: "Product",
     required: true,
   },
+  price: { type: Number, required: true },
   quantity: { type: Number, required: true },
 });
 const razorpaySchema = mongoose.Schema({
@@ -29,6 +30,8 @@ const orderSchema = mongoose.Schema({
   },
   paymentmethod: { type: String, required: true },
   razorpay: razorpaySchema,
+  couriername:{type:String},
+  trackingid:{type:String},
   orderstatus: { type: String, default: "OrderCreated" },
   total: { type: Number, required: true },
   ordercreation: { type: Date, default: Date.now },

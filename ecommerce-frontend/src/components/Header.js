@@ -1,100 +1,55 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "./Context";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
+import { BrowserView, MobileView } from "react-device-detect";
 export class Header extends Component {
   static contextType = DataContext;
   render() {
     const { cart } = this.context;
-
     return (
       <>
-        <div class="humberger__menu__overlay"></div>
-        <div class="humberger__menu__wrapper">
-          <div class="humberger__menu__logo">
-            <Link to="/">
-              <img src="img/logo.png" alt=""></img>
-            </Link>
-          </div>
-          <div class="humberger__menu__cart">
-            <ul>
-              <li>
-                <Link to="/cart">
-                  <i class="fa fa-shopping-bag"></i> <span>{cart.length}</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-              <li class="active">
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/product">Disposable</Link>
-              </li>
-
-              <li>
-                <Link to="/">Salon Products</Link>
-              </li>
-              <li>
-                <Link to="/">Contact</Link>
-              </li>
-            </ul>
-          </nav>
-          <div id="mobile-menu-wrap"></div>
-          <div class="humberger__menu__contact">
-            <ul>
-              <li>
-                <i class="fa fa-envelope"></i> connect@thesalonshop.in
-              </li>
-              <i class="fa fa-phone"></i>+91 9009005224
-            </ul>
-          </div>
-        </div>
-
-        <header class="header">
-          <div class="header__top">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-6 col-md-6">
-                  <div class="header__top__left">
-                    <ul>
-                      <li>
-                        <i class="fa fa-envelope"></i>connect@thesalonshop.in
-                      </li>
-                      <i class="fa fa-phone"></i>+91 9009005224
-                    </ul>
-                  </div>
+        <div className="header__top">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6 col-md-6">
+                <div className="header__top__left">
+                  <ul>
+                    <li>
+                      <i className="fa fa-envelope"></i>connect@thesalonshop.in
+                    </li>
+                    <i className="fa fa-phone"></i>+91 9009005224
+                  </ul>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                  <div class="header__top__right">
-                    <div class="header__top__right__social">
-                      <a href="https://www.facebook.com/thesalonshopindia">
-                        <i class="fa fa-facebook"></i>
-                      </a>
-                    </div>
-                    <div class="header__top__right__language">
-                      <img src="img/language.png" alt=""></img>
-                      <div>English</div>
-                    </div>
+              </div>
+              <div className="col-lg-6 col-md-6">
+                <div className="header__top__right">
+                  <div className="header__top__right__social">
+                    <a href="https://www.facebook.com/thesalonshopindia">
+                      <i className="fa fa-facebook"></i>
+                    </a>
+                  </div>
+                  <div className="header__top__right__language">
+                    <img src="img/language.png" alt=""></img>
+                    <div>English</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="header__logo">
+        </div>
+        <BrowserView>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-3">
+                <div className="header__logo">
                   <Link to="/">
                     <img src="img/logo.png" alt=""></img>
                   </Link>
                 </div>
               </div>
-              <div class="col-lg-6">
-                <nav class="header__menu">
+              <div className="col-lg-6">
+                <nav className="header__menu">
                   <ul>
                     <li>
                       <Link to="/">Home</Link>
@@ -112,12 +67,12 @@ export class Header extends Component {
                   </ul>
                 </nav>
               </div>
-              <div class="col-lg-3">
-                <div class="header__cart">
+              <div className="col-lg-3">
+                <div className="header__cart">
                   <ul>
                     <li>
                       <Link to="/cart">
-                        <i class="fa fa-shopping-bag"></i>{" "}
+                        <i className="fa fa-shopping-bag"></i>{" "}
                         <span>{cart.length}</span>
                       </Link>
                     </li>
@@ -125,11 +80,39 @@ export class Header extends Component {
                 </div>
               </div>
             </div>
-            <div class="humberger__open">
-              <i class="fa fa-bars"></i>
+            <div className="humberger__open">
+              <i className="fa fa-bars"></i>
             </div>
           </div>
-        </header>
+        </BrowserView>
+        <MobileView>
+          <Navbar expand="lg">
+            <div className="header__logo">
+              <Link to="/">
+                <img src="img/logo.png" alt=""></img>
+              </Link>
+            </div>
+            <div className="header__cart" style={{ marginTop: "5%" }}>
+              <ul>
+                <li>
+                  <Link to="/cart">
+                    <i className="fa fa-shopping-bag"></i>{" "}
+                    <span>{cart.length}</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto ">
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/salon">Salon</Nav.Link>
+                <Nav.Link href="/disposable">Disposable</Nav.Link>
+                <Nav.Link href="/contact">Contact</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </MobileView>
       </>
     );
   }

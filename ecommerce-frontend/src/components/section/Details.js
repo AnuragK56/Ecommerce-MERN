@@ -19,6 +19,12 @@ export class Details extends Component {
   }
   render() {
     const { product } = this.state;
+    let newText = product.map((item) =>
+      item.description.split("\n").map((i) => {
+        return <p>{i}</p>;
+      })
+    );
+
     return product.map((item) => (
       // <div className="Details" key="{item._id}">
       //   <img src={`http://localhost:5000/${item.image}`} alt=""></img>
@@ -33,36 +39,36 @@ export class Details extends Component {
       //     </button>
       //   </div>
       // </div>
-      <section class="product-details spad">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="product__details__pic">
-                <div class="product__details__pic__item">
+      <section className="product-details spad">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6 col-md-6">
+              <div className="product__details__pic">
+                <div className="product__details__pic__item">
                   <img
-                    class="product__details__pic__item--large"
+                    className="product__details__pic__item--large"
                     src={`http://localhost:5000/${item.image}`}
                     alt=""
                   ></img>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="product__details__text">
+            <div className="col-lg-6 col-md-6">
+              <div className="product__details__text">
                 <h3>{item.title}</h3>
-
-                <div class="product__details__price">₹{item.price}</div>
-                <p>{item.description}</p>
-                <div class="product__details__quantity">
-                  <div class="quantity">
-                    <div class="pro-qty">
+                <h5>{item.minidescription}</h5>
+                <div className="product__details__price">₹{item.price}</div>
+                {newText}
+                <div className="product__details__quantity">
+                  <div className="quantity">
+                    <div className="pro-qty">
                       <input type="text" value="1"></input>
                     </div>
                   </div>
                 </div>
                 <button
                   onClick={() => this.context.addcart(item._id)}
-                  class="primary-btn"
+                  className="primary-btn"
                 >
                   ADD TO CART
                 </button>

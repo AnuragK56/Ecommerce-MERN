@@ -3,6 +3,8 @@ const app = express();
 var myParser = require("body-parser");
 const router = express.Router();
 const Order = require("../models/order");
+const Product = require("../models/product");
+
 const Razorpay = require("razorpay");
 const shortid = require("shortid");
 const { response } = require("express");
@@ -65,10 +67,24 @@ router.post("/", jsonParser, async (req, res) => {
       orderstatus: "Order Created",
     });
     // Then saving the order to the database
+    const cart = req.body.cart;
+    for (var i in cart) {
+      // console.log(cart[i].product);
+      Product.findByIdAndUpdate(
+        { _id: cart[i].product },
+        { $inc: { stock: -cart[i].quantity } }
+      )
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     order
       .save()
       .then((result) => {
-        console.log(result);
+        console.log("Result" + result);
         //Sending the details
         res.status(201).json({
           message: "Created order successfully",
@@ -128,7 +144,7 @@ router.post("/", jsonParser, async (req, res) => {
       receipt,
       payment_capture,
     };
-    +    //Requesting Razorpay to create an Order
+    //Requesting Razorpay to create an Order
     try {
       const response = await razorpay.orders.create(options);
       // console.log("Razorpay: " + response);

@@ -43,6 +43,13 @@ app.use("/adminpanel", adminpanel);
 const showorders = require("./routes/showorders");
 app.use("/showorders", showorders);
 
+//Route to Update Order Status
+const updateorder = require("./routes/updateorder");
+app.use("/updateorder", updateorder);
+
+//Route to Update Product Status
+const updateproduct = require("./routes/updateproduct");
+app.use("/updateproduct", updateproduct);
 
 //Route to create Order id
 const createorder = require("./routes/createorder");

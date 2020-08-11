@@ -13,7 +13,7 @@ export class Cart extends Component {
       return (
         <>
           <div className="container">
-            <div class="banner">
+            <div className="banner">
               <p className="banner-text">Shopping Cart</p>
             </div>
           </div>
@@ -33,19 +33,19 @@ export class Cart extends Component {
       return (
         <>
           <div className="container">
-            <div class="banner">
+            <div className="banner">
               <p className="banner-text">Shopping Cart</p>
             </div>
           </div>
-          <section class="shoping-cart spad">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-7">
-                  <div class="shoping__cart__table">
+          <section className="shoping-cart spad">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-7">
+                  <div className="shoping__cart__table">
                     <table>
                       <thead>
                         <tr>
-                          <th class="shoping__product">Products</th>
+                          <th className="shoping__product">Products</th>
                           <th>Price</th>
                           <th>Quantity</th>
                           <th>Total</th>
@@ -55,7 +55,10 @@ export class Cart extends Component {
                       <tbody>
                         {cart.map((item) => (
                           <tr>
-                            <td class="shoping__cart__item" key="{item._id}">
+                            <td
+                              className="shoping__cart__item"
+                              key="{item._id}"
+                            >
                               <img
                                 src={`http://localhost:5000/${item.image}`}
                                 alt=""
@@ -64,14 +67,16 @@ export class Cart extends Component {
                               ></img>
                               <p>{item.title}</p>
                             </td>
-                            <td class="shoping__cart__price">₹{item.price}</td>
-                            <td class="shoping__cart__quantity">
-                              <div class="quantity">
+                            <td className="shoping__cart__price">
+                              ₹{item.price}
+                            </td>
+                            <td className="shoping__cart__quantity">
+                              <div className="quantity">
                                 <div>
                                   <span
                                     className="count"
                                     onClick={() => reduction(item._id)}
-                                    class="btn btn-success"
+                                    className="btn btn-success"
                                   >
                                     -
                                   </span>
@@ -82,20 +87,20 @@ export class Cart extends Component {
                                   <span
                                     className="count"
                                     onClick={() => increase(item._id)}
-                                    class="btn btn-success"
+                                    className="btn btn-success"
                                   >
                                     +
                                   </span>
                                 </div>
                               </div>
                             </td>
-                            <td class="shoping__cart__total">
+                            <td className="shoping__cart__total">
                               ₹{item.price * item.count}
                             </td>
-                            <td class="shoping__cart__item__close">
+                            <td className="shoping__cart__item__close">
                               <span
                                 onClick={() => removeitem(item._id)}
-                                class="icon_close"
+                                className="icon_close"
                               ></span>
                             </td>
                           </tr>
@@ -105,37 +110,37 @@ export class Cart extends Component {
                   </div>
                 </div>
 
-                <div class="col-lg-4">
-                  <div class="shoping__checkout">
+                <div className="col-lg-4">
+                  <div className="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
                       <li>
                         Total <span>₹{total}</span>
                       </li>
                     </ul>
-                    <Link to="/checkout" class="primary-btn">
+                    <Link to="/checkout" className="primary-btn">
                       PROCEED TO CHECKOUT
                     </Link>
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div style={{ margin: "auto", paddingTop: "20px" }}>
-                  <Link to="/" class="primary-btn">
+                  <Link to="/" className="primary-btn">
                     Continue Shopping
                   </Link>
                 </div>
-                {/* <div class="col-lg-6"> 
-                   <div class="shoping__continue"> 
+                {/* <div className="col-lg-6"> 
+                   <div className="shoping__continue"> 
                    ------------------- For Discount Coupon Code---------------- 
-                     <div class="shoping__discount">
+                     <div className="shoping__discount">
                       <h5>Discount Codes</h5>
                       <form action="#">
                         <input
                           type="text"
                           placeholder="Enter your coupon code"
                         ></input>
-                        <button type="submit" class="site-btn">
+                        <button type="submit" className="site-btn">
                           APPLY COUPON
                         </button>
                       </form>

@@ -3,6 +3,40 @@ import { Button, Icon, Modal } from "semantic-ui-react";
 
 const OrderDetails = (props) => {
   const [open, setOpen] = React.useState(false);
+  let couriernameInput = React.createRef();
+  let trackingidInput = React.createRef();
+  function changeStatus(id) {
+    let logindetails = JSON.parse(localStorage.getItem("login"));
+    if (logindetails != null) {
+      let token = logindetails.token;
+      let url = "http://localhost:5000/updateorder/" + id;
+      let at = "Bearer " + token;
+      let data;
+      if (
+        couriernameInput.current.value !== "" &&
+        trackingidInput.current.value !== ""
+      ) {
+        data = {
+          couriername: couriernameInput.current.value,
+          trackingid: trackingidInput.current.value,
+        };
+      }
+      // console.log(url);
+      // console.log(at);
+      // console.log(data);
+      fetch(url, {
+        method: "PATCH",
+        headers: {
+          Authorization: at,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((t) => t.json())
+        // .then((data) => console.log(data));
+      window.location.reload(false);
+    }
+  }
   return (
     <Modal
       open={open}
@@ -15,7 +49,7 @@ const OrderDetails = (props) => {
         {/* <h2>Customer Details &nbsp;</h2> */}
         <Modal.Description>
           <div className="row">
-            <div class="col-lg-6">
+            <div className="col-lg-6">
               <h1>Customer Details</h1>
               <p>
                 <strong>First name: &nbsp;</strong>
@@ -34,7 +68,7 @@ const OrderDetails = (props) => {
                 {props.order.customer.email}
               </p>
             </div>
-            <div class="col-lg-6">
+            <div className="col-lg-6">
               <p>
                 <strong>Address : &nbsp;</strong>
                 {props.order.customer.address}
@@ -79,9 +113,9 @@ const OrderDetails = (props) => {
                       ></img>
                       <h5>{item.product.title}</h5>
                     </td>
-                    <td class="shoping__cart__price">₹{item.product.price}</td>
-                    <td class="shoping__cart__quantity">
-                      <div class="quantity">
+                    <td className="shoping__cart__price">₹{item.price}</td>
+                    <td className="shoping__cart__quantity">
+                      <div className="quantity">
                         <div>
                           {/* <input value={item.count}></input> */}
                           <span style={{ padding: "15px" }}>
@@ -90,10 +124,10 @@ const OrderDetails = (props) => {
                         </div>
                       </div>
                     </td>
-                    <td class="shoping__cart__total">
+                    <td className="shoping__cart__total">
                       ₹{item.product.price * item.quantity}
                     </td>
-                    <td class="shoping__cart__item__close"></td>
+                    <td className="shoping__cart__item__close"></td>
                   </tr>
                 ))}
               </tbody>
@@ -136,9 +170,50 @@ const OrderDetails = (props) => {
                 )}
             </div>
           </div>
+          {props.order.orderstatus !== "Shipped" && (
+            <>
+              <hr></hr>
+              <h4>Courier Details</h4>
+              <div className="row">
+                <div className="col-lg-6">
+                  Courier Service name
+                  <br></br>
+                  <input type="text" ref={couriernameInput} />
+                </div>
+                <div className="col-lg-6">
+                  Tracking Id
+                  <br></br>
+                  <input type="text" ref={trackingidInput} />
+                </div>
+              </div>
+            </>
+          )}
+          {props.order.orderstatus === "Shipped" && (
+            <>
+              <hr></hr>
+              <h4>Courier Details</h4>
+              <div className="row">
+                <div className="col-lg-6">
+                  Courier Service name
+                  <br></br>
+                  <h3>{props.order.couriername}</h3>
+                </div>
+                <div className="col-lg-6">
+                  Tracking Id
+                  <br></br>
+                  <h3>{props.order.trackingid}</h3>
+                </div>
+              </div>
+            </>
+          )}
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
+        {props.order.orderstatus !== "Shipped" && (
+          <Button color="green" onClick={() => changeStatus(props.order._id)}>
+            Change order status to Shipped <Icon name="chevron right" />
+          </Button>
+        )}
         <Button onClick={() => setOpen(false)} primary>
           Done <Icon name="chevron right" />
         </Button>

@@ -33,8 +33,8 @@ const upload = multer({
 //Mutler acts as middleware to ccept the file
 //Creating a new post request to accept a new product
 router.post("/", checkAuth, upload.single("image"), (req, res) => {
-  console.log(req.file);
-  console.log(req.body);
+  // console.log(req.file);
+  // console.log(req.body);
   // var images = { image: req.files.path[0] };
   // var obj = JSON.parse(images);
   // for (i = 1; i < req.files.length; i++) {
@@ -52,7 +52,7 @@ router.post("/", checkAuth, upload.single("image"), (req, res) => {
     price: req.body.price,
     description: req.body.description,
     image: image,
-    // images:images,
+    minidescription:req.body.minidescription,
     stock: req.body.stock,
     category: req.body.category,
     subcategory: req.body.subcategory,
