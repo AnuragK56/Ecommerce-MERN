@@ -16,9 +16,9 @@ export class Header extends Component {
                 <div className="header__top__left">
                   <ul>
                     <li>
-                      <i className="fa fa-envelope"></i>connect@thesalonshop.in
+                      <i className="fa fa-envelope"></i>connect@help.in
                     </li>
-                    <i className="fa fa-phone"></i>+91 9009005224
+                    <i className="fa fa-phone"></i>+91 9111111111
                   </ul>
                 </div>
               </div>
