@@ -14,11 +14,10 @@ export class Footer extends Component {
                 </div>
                 <ul>
                   <li>
-                    Address: S.PACE Coworking , Basant Vihar Clny, Behind Bombay
-                    Hospital, Indore-452010
+                    Address: Mumbai,India
                   </li>
-                  <li>Phone: +91 9009005224</li>
-                  <li>Email: connect@thesalonshop.in</li>
+                  <li>Phone: +91 91111111111</li>
+                  <li>Email: connect@support.in</li>
                 </ul>
               </div>
             </div>
