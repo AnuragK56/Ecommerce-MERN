@@ -81,8 +81,8 @@ export class PaymentOptions extends Component {
     const options = {
       currency: data2.createdorder.currency,
       amount: data2.createdorder.amount,
-      key: "rzp_test_xfqXHG772xVSUH", // Enter the Key ID generated from the Dashboard
-      name: "The Salon Shop",
+      key: "rzp_test_ID", // Enter the Key ID generated from the Dashboard
+      name: "The Shop",
       description: "Test Transaction",
       image: "https://example.com/your_logo",
       order_id: data2.createdorder.razorpay_order_id,
